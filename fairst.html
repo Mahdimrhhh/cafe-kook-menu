@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>کافه کوک | منوی تخصصی قهوه</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style2.css">
+</head>
+<body class="home-view">
+
+    <!-- صفحه هوم (لندینگ) -->
+    <div id="homePage" class="hero">
+        <div class="hero-layers" aria-hidden="true">
+            <img src="./img/IMG_20240101_001637_353.jpg" class="hero-bg" alt="">
+            <div class="hero-gradient-overlay"></div>
+            <div class="hero-vignette"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-brand">
+                <div class="logo-ring">
+                    <i class="fas fa-mug-hot"></i>
+                </div>
+                <p class="hero-eyebrow">تخصصی · دم‌آوری دستی</p>
+                <h1>
+                    <span class="hero-title-en">Cafe Kook</span>
+                    <span class="hero-title-fa">کافه کوک</span>
+                </h1>
+                <p class="slogan">گرما، صمیمیت، طعم بی‌نظیر قهوه</p>
+            </div>
+            <button class="coffee-cup-btn" id="enterCafeBtn">
+                <span class="btn-glow" aria-hidden="true"></span>
+                <i class="fas fa-mug-hot"></i>
+                <span>ورود به منوی کافه</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- اپ اصلی -->
+    <div id="mainApp" class="main-app">
+        <header class="hero-header">
+            <div class="hero-header-image" aria-hidden="true"></div>
+            <div class="hero-overlay">
+                <div class="hero-top">
+                    <a href="#" class="back-btn" id="backHomeBtn">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>خانه</span>
+                    </a>
+                    <button id="themeToggle" class="theme-toggle-btn" aria-label="تغییر حالت تاریک">🌙</button>
+                </div>
+                <div class="hero-text">
+                    <span class="menu-hero-label">منوی دیجیتال</span>
+                    <h1>کافه کوک</h1>
+                    <p>تجربه‌ای متفاوت از قهوه، دسر و نوشیدنی‌های خاص</p>
+                </div>
+            </div>
+            <div class="hero-fade-bottom" aria-hidden="true"></div>
+        </header>
+
+        <section class="menu-controls">
+            <div class="search-sort-bar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="جستجوی قهوه، دسر، ساندویچ...">
+                    <button id="clearSearchBtn"><i class="fas fa-times-circle"></i></button>
+                </div>
+                <button class="sort-btn" id="sortBtn"><i class="fas fa-arrow-down-wide-short"></i> مرتب‌سازی</button>
+            </div>
+
+            <div class="featured-strip">
+                <div class="featured-strip-badge">⭐ پیشنهاد امروز</div>
+                <div class="featured-strip-info">
+                    <h3>لاته کلاسیک</h3>
+                    <p>محبوب‌ترین نوشیدنی این هفته</p>
+                </div>
+                <span class="featured-strip-price">۹۲,۰۰۰ تومان</span>
+            </div>
+
+            <div class="categories-wrapper">
+                <div class="categories-slider" id="categoriesSlider"></div>
+            </div>
+        </section>
+
+        <div id="dynamicContent"></div>
+
+        <footer class="footer"></footer>
+    </div>
+
+    <div class="coffee-modal" id="coffeeModal">
+        <div class="coffee-modal-box">
+            <button id="closeCoffeeModal">✕</button>
+            <h3 id="modalTitle"></h3>
+            <p id="modalContent"></p>
+        </div>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+</body>
+</html>
