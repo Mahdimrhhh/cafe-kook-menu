@@ -19,6 +19,7 @@ import {
 } from "./ui/knowledgeRenderer.js";
 import { renderReviewSection } from "./ui/reviewRenderer.js";
 import { renderFooter } from "./ui/footerRenderer.js";
+import { renderCoffeeFinder, initCoffeeFinder } from "./ui/coffeeFinderRenderer.js";
 
 async function initServices() {
     await Promise.all([
@@ -178,10 +179,12 @@ async function renderMainContent() {
     container.innerHTML =
         renderMenuGrid(items, ui.expandedProductId) +
         renderCoffeeKnowledge(articles) +
+        renderCoffeeFinder() +
         renderReviewSection(reviews, ui.selectedRating);
 
     initCoffeeModal();
     initCoffeeGuideSlider();
+    initCoffeeFinder(appState.getProducts());
     bindExpandButtons();
     bindReviewForm();
 }
@@ -247,7 +250,6 @@ function initHeaderScroll() {
 
         const opacity = Math.max(0, 1 - scrollY / (headerHeight * 0.6));
         header.style.opacity = opacity;
-        // translateY رو کامل حذف کن
     });
 }
 

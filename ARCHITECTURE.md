@@ -8,7 +8,7 @@ The application follows a **layered architecture** that separates data, business
 
 ```
 ┌─────────────────────────────────────────┐
-│              fairst.html                │
+│              index.html                │
 │         (Static shell + layout)         │
 └─────────────────┬───────────────────────┘
                   │

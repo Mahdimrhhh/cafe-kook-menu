@@ -1,0 +1,255 @@
+/* ========== قهوه‌شناس ========== */
+.coffee-finder-section {
+    margin: 32px 16px;
+    background: linear-gradient(135deg, rgba(184, 122, 68, 0.08), rgba(107, 63, 31, 0.05));
+    border: 1px solid rgba(184, 122, 68, 0.2);
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+body.dark .coffee-finder-section {
+    background: linear-gradient(135deg, rgba(184, 122, 68, 0.12), rgba(0,0,0,0.2));
+    border-color: rgba(184, 122, 68, 0.25);
+}
+
+.coffee-finder-header {
+    text-align: center;
+    padding: 28px 20px 20px;
+    border-bottom: 1px solid rgba(184, 122, 68, 0.15);
+}
+
+.coffee-finder-icon {
+    font-size: 2.4rem;
+    margin-bottom: 10px;
+}
+
+.coffee-finder-header h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--coffee);
+    margin-bottom: 6px;
+}
+
+.coffee-finder-header p {
+    font-size: 0.88rem;
+    color: #999;
+}
+
+.coffee-finder-body {
+    padding: 24px 20px 28px;
+}
+
+/* سوال */
+.cf-question {
+    animation: cfFadeIn 0.3s ease;
+}
+
+@keyframes cfFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.cf-progress {
+    height: 4px;
+    background: rgba(184, 122, 68, 0.15);
+    border-radius: 2px;
+    margin-bottom: 8px;
+    overflow: hidden;
+}
+
+.cf-progress-bar {
+    height: 100%;
+    background: var(--coffee);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+.cf-progress-text {
+    font-size: 0.75rem;
+    color: #aaa;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.cf-emoji {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.cf-question-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.cf-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.cf-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 14px 10px;
+    background: rgba(255,255,255,0.6);
+    border: 1.5px solid rgba(184, 122, 68, 0.2);
+    border-radius: 16px;
+    cursor: pointer;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+body.dark .cf-option {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(184, 122, 68, 0.25);
+    color: #f0e2d4;
+}
+
+.cf-option:hover {
+    border-color: var(--coffee);
+    background: rgba(184, 122, 68, 0.08);
+    transform: translateY(-2px);
+}
+
+.cf-option--selected {
+    border-color: var(--coffee) !important;
+    background: rgba(184, 122, 68, 0.15) !important;
+    transform: scale(0.97);
+}
+
+.cf-option-icon {
+    font-size: 1.5rem;
+}
+
+.cf-option-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.cf-back-btn {
+    background: none;
+    border: none;
+    color: #aaa;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    padding: 4px 0;
+    display: block;
+    margin: 0 auto;
+}
+
+.cf-back-btn:hover {
+    color: var(--coffee);
+}
+
+/* نتیجه */
+.cf-result {
+    animation: cfFadeIn 0.4s ease;
+}
+
+.cf-result-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.cf-result-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    margin-top: 8px;
+}
+
+body.dark .cf-result-header h3 {
+    color: #aaa;
+}
+
+.cf-result-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.cf-result-card {
+    position: relative;
+    padding: 16px;
+    background: rgba(255,255,255,0.7);
+    border: 1.5px solid rgba(184, 122, 68, 0.2);
+    border-radius: 16px;
+    transition: transform 0.2s;
+}
+
+body.dark .cf-result-card {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(184, 122, 68, 0.2);
+}
+
+.cf-result-card--top {
+    border-color: var(--coffee);
+    background: rgba(184, 122, 68, 0.07);
+}
+
+body.dark .cf-result-card--top {
+    background: rgba(184, 122, 68, 0.12);
+}
+
+.cf-best-badge {
+    display: inline-block;
+    background: var(--coffee);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+}
+
+.cf-result-card-name {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.cf-result-card-desc {
+    font-size: 0.82rem;
+    color: #888;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+body.dark .cf-result-card-desc {
+    color: #aaa;
+}
+
+.cf-result-card-price {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--coffee);
+}
+
+.cf-restart-btn {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background: none;
+    border: 1.5px solid rgba(184, 122, 68, 0.35);
+    border-radius: 60px;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+    font-size: 0.9rem;
+    color: var(--coffee);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cf-restart-btn:hover {
+    background: rgba(184, 122, 68, 0.08);
+}

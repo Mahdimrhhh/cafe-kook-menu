@@ -1,0 +1,260 @@
+/**
+ * @file قهوه‌شناس — سیستم پیشنهاد قهوه بر اساس سوال‌های شخصیتی
+ */
+
+const QUESTIONS = [
+    {
+        id: "mood",
+        emoji: "🌤️",
+        text: "الان چه حسی داری؟",
+        type: "personality",
+        options: [
+            { label: "خسته و نیاز به انرژی دارم", value: "tired", icon: "😴" },
+            { label: "آروم و می‌خوام لذت ببرم", value: "calm", icon: "😌" },
+            { label: "استرس دارم", value: "stressed", icon: "😤" },
+            { label: "شاد و سرحالم", value: "happy", icon: "😄" }
+        ]
+    },
+    {
+        id: "taste",
+        emoji: "👅",
+        text: "طعم مورد علاقه‌ات چیه؟",
+        type: "technical",
+        options: [
+            { label: "تلخ و قوی", value: "bitter", icon: "☕" },
+            { label: "شیرین و ملایم", value: "sweet", icon: "🍯" },
+            { label: "ترش و میوه‌ای", value: "fruity", icon: "🍒" },
+            { label: "خامه‌ای و نرم", value: "creamy", icon: "🥛" }
+        ]
+    },
+    {
+        id: "time",
+        emoji: "🕐",
+        text: "کِی می‌خوای قهوه‌ات رو بخوری؟",
+        type: "personality",
+        options: [
+            { label: "صبح اول وقت", value: "morning", icon: "🌅" },
+            { label: "وسط روز", value: "noon", icon: "☀️" },
+            { label: "بعد از ناهار", value: "afternoon", icon: "🌤️" },
+            { label: "عصر یا شب", value: "evening", icon: "🌙" }
+        ]
+    },
+    {
+        id: "milk",
+        emoji: "🥛",
+        text: "رابطه‌ات با شیر چطوره؟",
+        type: "technical",
+        options: [
+            { label: "هرچی بیشتر بهتر", value: "love", icon: "❤️" },
+            { label: "یکم بدم نمیاد", value: "little", icon: "👌" },
+            { label: "ترجیحاً بدون شیر", value: "none", icon: "🚫" },
+            { label: "برام مهم نیست", value: "any", icon: "🤷" }
+        ]
+    },
+    {
+        id: "experience",
+        emoji: "🎓",
+        text: "چقدر با قهوه آشنایی؟",
+        type: "technical",
+        options: [
+            { label: "تازه‌کارم، راهنماییم کن", value: "beginner", icon: "🌱" },
+            { label: "معمولی می‌خورم", value: "casual", icon: "😊" },
+            { label: "قهوه‌دون حرفه‌ای‌ام", value: "expert", icon: "🏆" },
+            { label: "دنبال تجربه جدید می‌گردم", value: "adventurous", icon: "🚀" }
+        ]
+    }
+];
+
+// منطق پیشنهاد بر اساس پاسخ‌ها
+function suggestCoffee(answers, products) {
+    const scores = {};
+
+    products.forEach(p => { scores[p.id] = 0; });
+
+    products.forEach(p => {
+        const name = p.name.toLowerCase();
+        const desc = (p.description || "").toLowerCase();
+        const combined = name + " " + desc;
+
+        // mood
+        if (answers.mood === "tired") {
+            if (combined.includes("اسپرسو") || combined.includes("دوپیو") || combined.includes("ریسترتو")) scores[p.id] += 3;
+            if (combined.includes("کافئین") || combined.includes("قوی")) scores[p.id] += 2;
+        }
+        if (answers.mood === "calm") {
+            if (combined.includes("لاته") || combined.includes("موکا") || combined.includes("شیر")) scores[p.id] += 3;
+        }
+        if (answers.mood === "stressed") {
+            if (combined.includes("دکاف") || combined.includes("شیر") || combined.includes("وانیل")) scores[p.id] += 3;
+            if (combined.includes("کارامل") || combined.includes("شکلات")) scores[p.id] += 2;
+        }
+        if (answers.mood === "happy") {
+            if (combined.includes("فراپه") || combined.includes("کاپوچینو") || combined.includes("کارامل")) scores[p.id] += 3;
+        }
+
+        // taste
+        if (answers.taste === "bitter") {
+            if (combined.includes("اسپرسو") || combined.includes("امریکانو") || combined.includes("ریسترتو")) scores[p.id] += 3;
+        }
+        if (answers.taste === "sweet") {
+            if (combined.includes("کارامل") || combined.includes("وانیل") || combined.includes("موکا") || combined.includes("شکلات")) scores[p.id] += 3;
+        }
+        if (answers.taste === "fruity") {
+            if (combined.includes("اتیوپی") || combined.includes("کنیا") || combined.includes("ترش") || combined.includes("میوه")) scores[p.id] += 3;
+        }
+        if (answers.taste === "creamy") {
+            if (combined.includes("لاته") || combined.includes("فلت وایت") || combined.includes("کاپوچینو") || combined.includes("خامه")) scores[p.id] += 3;
+        }
+
+        // milk
+        if (answers.milk === "love") {
+            if (combined.includes("لاته") || combined.includes("شیر") || combined.includes("کاپوچینو")) scores[p.id] += 2;
+        }
+        if (answers.milk === "none") {
+            if (combined.includes("اسپرسو") || combined.includes("امریکانو") || combined.includes("فیلتر")) scores[p.id] += 2;
+            if (combined.includes("شیر")) scores[p.id] -= 2;
+        }
+
+        // experience
+        if (answers.experience === "beginner") {
+            if (combined.includes("لاته") || combined.includes("موکا") || combined.includes("کاپوچینو")) scores[p.id] += 2;
+            if (combined.includes("اسپرسو") || combined.includes("ریسترتو")) scores[p.id] -= 1;
+        }
+        if (answers.experience === "expert") {
+            if (combined.includes("اسپرسو") || combined.includes("فیلتر") || combined.includes("کلدبرو") || combined.includes("ریسترتو")) scores[p.id] += 2;
+        }
+        if (answers.experience === "adventurous") {
+            scores[p.id] += Math.random() * 1.5; // کمی تنوع
+        }
+
+        // time
+        if (answers.time === "morning") {
+            if (combined.includes("اسپرسو") || combined.includes("امریکانو") || combined.includes("دوپیو")) scores[p.id] += 2;
+        }
+        if (answers.time === "evening") {
+            if (combined.includes("دکاف") || combined.includes("شیر") || combined.includes("موکا")) scores[p.id] += 2;
+            if (combined.includes("اسپرسو") && !combined.includes("دکاف")) scores[p.id] -= 1;
+        }
+    });
+
+    // مرتب‌سازی و برگشت ۳ تا
+    const sorted = products
+        .filter(p => p.available)
+        .sort((a, b) => (scores[b.id] || 0) - (scores[a.id] || 0));
+
+    return sorted.slice(0, 3);
+}
+
+function getMoodMessage(answers) {
+    if (answers.mood === "tired") return "چون انرژی نیاز داری، اینا برات انتخاب شدن:";
+    if (answers.mood === "calm") return "برای یه لحظه آروم، اینا بهترین گزینه‌ان:";
+    if (answers.mood === "stressed") return "چیزی که حالت رو بهتر کنه:";
+    if (answers.mood === "happy") return "برای این حس خوبت:";
+    return "بر اساس پاسخ‌هات، اینا رو پیشنهاد می‌دیم:";
+}
+
+export function renderCoffeeFinder() {
+    return `
+    <section class="coffee-finder-section" id="coffeeFinderSection">
+        <div class="coffee-finder-header">
+            <div class="coffee-finder-icon">☕</div>
+            <h2>قهوه‌شناس</h2>
+            <p>چند سوال کوتاه، یه پیشنهاد دقیق</p>
+        </div>
+        <div class="coffee-finder-body" id="coffeeFinderBody">
+            ${renderQuestion(0, {})}
+        </div>
+    </section>`;
+}
+
+function renderQuestion(index, answers) {
+    const q = QUESTIONS[index];
+    const progress = Math.round((index / QUESTIONS.length) * 100);
+
+    return `
+    <div class="cf-question" data-index="${index}">
+        <div class="cf-progress">
+            <div class="cf-progress-bar" style="width: ${progress}%"></div>
+        </div>
+        <div class="cf-progress-text">${index + 1} از ${QUESTIONS.length}</div>
+        <div class="cf-emoji">${q.emoji}</div>
+        <h3 class="cf-question-text">${q.text}</h3>
+        <div class="cf-options">
+            ${q.options.map(opt => `
+                <button class="cf-option" data-value="${opt.value}" data-question="${q.id}">
+                    <span class="cf-option-icon">${opt.icon}</span>
+                    <span class="cf-option-label">${opt.label}</span>
+                </button>
+            `).join("")}
+        </div>
+        ${index > 0 ? `<button class="cf-back-btn" data-back="${index}">← برگشت</button>` : ""}
+    </div>`;
+}
+
+function renderResult(suggestions, answers) {
+    const message = getMoodMessage(answers);
+    return `
+    <div class="cf-result">
+        <div class="cf-result-header">
+            <div class="cf-emoji">🎯</div>
+            <h3>${message}</h3>
+        </div>
+        <div class="cf-result-cards">
+            ${suggestions.map((p, i) => `
+                <div class="cf-result-card ${i === 0 ? "cf-result-card--top" : ""}">
+                    ${i === 0 ? '<span class="cf-best-badge">بهترین انتخاب</span>' : ""}
+                    <div class="cf-result-card-name">${p.name}</div>
+                    <div class="cf-result-card-desc">${p.description || ""}</div>
+                    <div class="cf-result-card-price">${p.price ? p.price.toLocaleString("fa-IR") + " تومان" : ""}</div>
+                </div>
+            `).join("")}
+        </div>
+        <button class="cf-restart-btn" id="cfRestartBtn">دوباره امتحان کن ↺</button>
+    </div>`;
+}
+
+export function initCoffeeFinder(products) {
+    const body = document.getElementById("coffeeFinderBody");
+    if (!body) return;
+
+    const answers = {};
+
+    function goToQuestion(index) {
+        body.innerHTML = renderQuestion(index, answers);
+        bindQuestion(index);
+    }
+
+    function bindQuestion(index) {
+        body.querySelectorAll(".cf-option").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const questionId = btn.dataset.question;
+                const value = btn.dataset.value;
+                answers[questionId] = value;
+
+                btn.classList.add("cf-option--selected");
+
+                setTimeout(() => {
+                    if (index + 1 < QUESTIONS.length) {
+                        goToQuestion(index + 1);
+                    } else {
+                        const suggestions = suggestCoffee(answers, products);
+                        body.innerHTML = renderResult(suggestions, answers);
+                        document.getElementById("cfRestartBtn")?.addEventListener("click", () => {
+                            Object.keys(answers).forEach(k => delete answers[k]);
+                            goToQuestion(0);
+                        });
+                    }
+                }, 300);
+            });
+        });
+
+        body.querySelector(".cf-back-btn")?.addEventListener("click", (e) => {
+            const backIndex = parseInt(e.currentTarget.dataset.back, 10) - 1;
+            const prevQuestion = QUESTIONS[backIndex];
+            delete answers[prevQuestion.id];
+            goToQuestion(backIndex);
+        });
+    }
+
+    bindQuestion(0);
+}
