@@ -28,6 +28,17 @@ const QUESTIONS = [
         ]
     },
     {
+        id: "temp",
+        emoji: "🌡️",
+        text: "قهوه‌ات رو چطور دوست داری؟",
+        type: "technical",
+        options: [
+            { label: "داغ و گرم‌کننده", value: "hot", icon: "♨️" },
+            { label: "سرد و رفرش‌کننده", value: "cold", icon: "🧊" },
+            { label: "فرقی نمی‌کنه", value: "any", icon: "🤷" }
+        ]
+    },
+    {
         id: "time",
         emoji: "🕐",
         text: "کِی می‌خوای قهوه‌ات رو بخوری؟",
@@ -104,6 +115,23 @@ function suggestCoffee(answers, products) {
         }
         if (answers.taste === "creamy") {
             if (combined.includes("لاته") || combined.includes("فلت وایت") || combined.includes("کاپوچینو") || combined.includes("خامه")) scores[p.id] += 3;
+        }
+        // temp
+        if (answers.temp === "hot") {
+            if (combined.includes("داغ") || combined.includes("گرم") || 
+                combined.includes("اسپرسو") || combined.includes("لاته") || 
+                combined.includes("کاپوچینو") || combined.includes("دمنوش") ||
+                combined.includes("ترک") || combined.includes("فیلتر")) scores[p.id] += 3;
+            if (combined.includes("آیس") || combined.includes("سرد") || 
+                combined.includes("کولد") || combined.includes("فراپ")) scores[p.id] -= 3;
+        }
+        if (answers.temp === "cold") {
+            if (combined.includes("آیس") || combined.includes("سرد") || 
+                combined.includes("کولد") || combined.includes("فراپ") ||
+                combined.includes("یخ")) scores[p.id] += 3;
+            if (combined.includes("سیروپ") || combined.includes("کارامل") || 
+                combined.includes("وانیل") || combined.includes("فندق")) scores[p.id] += 2;
+            if (combined.includes("داغ") || combined.includes("ترک")) scores[p.id] -= 2;
         }
 
         // milk
