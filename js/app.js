@@ -238,6 +238,19 @@ function initSearchAndSort() {
     });
 }
 
+function initHeaderScroll() {
+    const header = document.querySelector(".hero-header");
+
+    window.addEventListener("scroll", () => {
+        const scrollY = window.scrollY;
+        const headerHeight = header.offsetHeight;
+
+        const opacity = Math.max(0, 1 - scrollY / (headerHeight * 0.6));
+        header.style.opacity = opacity;
+        // translateY رو کامل حذف کن
+    });
+}
+
 function showMenuView() {
     document.body.classList.remove("home-view");
     document.getElementById("homePage").style.display = "none";
@@ -285,6 +298,7 @@ async function bootstrap() {
     initNavigation();
     initFooter();
     renderCategoriesSlider();
+    initHeaderScroll();
 }
 
 bootstrap();
