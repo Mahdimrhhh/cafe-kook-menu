@@ -59,7 +59,34 @@ function renderCategoriesSlider() {
     const ui = appState.getUi();
     const categories = appState.getCategories();
     slider.innerHTML = renderCategoryChips(categories, ui.currentCategory);
+     // افکت رولت هنگام اسکرول
+function updateChipScales() {
+    const sliderRect = slider.getBoundingClientRect();
+    const centerX = sliderRect.left + sliderRect.width / 2;
 
+    slider.querySelectorAll(".cat-chip").forEach(chip => {
+          if (chip.classList.contains("active")) {
+        chip.style.transform = "scale(1) rotateY(0deg)";
+        chip.style.opacity = "1";
+        return;
+        }
+        const chipRect = chip.getBoundingClientRect();
+        const chipCenterX = chipRect.left + chipRect.width / 2;
+        const distance = Math.abs(centerX - chipCenterX);
+        const maxDistance = sliderRect.width / 2;
+        const ratio = Math.min(distance / maxDistance, 1);
+
+        const scale = 1 - ratio * 0.18;
+        const opacity = 1 - ratio * 0.45;
+        const rotateY = ratio * 28 * (chipCenterX < centerX ? 1 : -1);
+
+        chip.style.transform = `scale(${scale}) rotateY(${rotateY}deg)`;
+        chip.style.opacity = opacity;
+    });
+}
+
+slider.addEventListener("scroll", updateChipScales);
+updateChipScales();
     slider.querySelectorAll(".cat-chip").forEach(chip => {
         chip.onclick = () => {
             appState.setCurrentCategory(chip.dataset.category);
@@ -293,6 +320,53 @@ function initFooter() {
     }
 }
 
+function initSlideNav() {
+    const btn = document.getElementById("navMenuBtn");
+    const nav = document.getElementById("slideNav");
+    const backdrop = document.getElementById("slideNavBackdrop");
+    const closeBtn = document.getElementById("slideNavClose");
+
+    function openNav() {
+        nav.classList.add("open");
+        btn.classList.add("open");
+        document.body.style.overflow = "hidden";
+    }
+    function closeNav() {
+        nav.classList.remove("open");
+        btn.classList.remove("open");
+        document.body.style.overflow = "";
+    }
+
+    btn?.addEventListener("click", openNav);
+    closeBtn?.addEventListener("click", closeNav);
+    backdrop?.addEventListener("click", closeNav);
+
+    document.querySelectorAll(".slide-nav-link").forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const targetId = link.dataset.target;
+            closeNav();
+            setTimeout(() => {
+                // اول توی dynamicContent دنبال المان بگرد
+                let target = document.getElementById(targetId);
+                
+                // اگه پیدا نشد، با querySelector کلاس بگرد
+                if (!target) {
+                    const classMap = {
+                        menuGrid: ".menu-grid",
+                        coffeeKnowledge: ".coffee-knowledge",
+                        coffeeFinderSection: ".coffee-finder-section",
+                        reviewSection: ".review-section",
+                        siteFooter: "footer"
+                    };
+                    target = document.querySelector(classMap[targetId]);
+                }
+                
+                target?.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 400);
+        });
+    });
+}
 async function bootstrap() {
     await initServices();
     initThemeToggle();
@@ -301,6 +375,7 @@ async function bootstrap() {
     initFooter();
     renderCategoriesSlider();
     initHeaderScroll();
+    initSlideNav();
 }
 
 bootstrap();
