@@ -60,9 +60,9 @@ function renderCategoriesSlider() {
     const categories = appState.getCategories();
     slider.innerHTML = renderCategoryChips(categories, ui.currentCategory);
      // افکت رولت هنگام اسکرول
-function updateChipScales() {
-    const sliderRect = slider.getBoundingClientRect();
-    const centerX = sliderRect.left + sliderRect.width / 2;
+    function updateChipScales() {
+        const sliderRect = slider.getBoundingClientRect();
+        const centerX = sliderRect.left + sliderRect.width / 2;
 
     slider.querySelectorAll(".cat-chip").forEach(chip => {
           if (chip.classList.contains("active")) {
@@ -85,36 +85,36 @@ function updateChipScales() {
     });
 }
 
-slider.addEventListener("scroll", updateChipScales);
-updateChipScales();
-    slider.querySelectorAll(".cat-chip").forEach(chip => {
-        chip.onclick = () => {
-            appState.setCurrentCategory(chip.dataset.category);
-            appState.setExpandedProductId(null);
-            renderCategoriesSlider();
-            renderMainContent();
-            setTimeout(() => {
-                document.querySelector(".cat-chip.active")?.scrollIntoView({
-                    behavior: "smooth",
-                    inline: "center",
-                    block: "nearest"
-                });
-            }, 50);
-        };
-    });
-}
+    slider.addEventListener("scroll", updateChipScales);
+    updateChipScales();
+        slider.querySelectorAll(".cat-chip").forEach(chip => {
+            chip.onclick = () => {
+                appState.setCurrentCategory(chip.dataset.category);
+                appState.setExpandedProductId(null);
+                renderCategoriesSlider();
+                renderMainContent();
+                setTimeout(() => {
+                    document.querySelector(".cat-chip.active")?.scrollIntoView({
+                        behavior: "smooth",
+                        inline: "center",
+                        block: "nearest"
+                    });
+                }, 50);
+            };
+        });
+    }
 
-function updateFeaturedStrip() {
-    const strip = document.querySelector(".featured-strip");
-    if (!strip) return;
+    function updateFeaturedStrip() {
+        const strip = document.querySelector(".featured-strip");
+        if (!strip) return;
 
-    const featured = appState.getProducts().filter(p => p.featured && p.available);
-    const product = featured.length
-        ? featured[Math.floor(Math.random() * featured.length)]
-        : appState.getProducts().find(p => p.available);
+        const featured = appState.getProducts().filter(p => p.featured && p.available);
+        const product = featured.length
+            ? featured[Math.floor(Math.random() * featured.length)]
+            : appState.getProducts().find(p => p.available);
 
-    strip.outerHTML = renderFeaturedStrip(product);
-}
+        strip.outerHTML = renderFeaturedStrip(product);
+    }
 
 function bindExpandButtons() {
     const ui = appState.getUi();
