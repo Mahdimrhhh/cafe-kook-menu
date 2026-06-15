@@ -299,12 +299,6 @@ function initNavigation() {
         renderCategoriesSlider();
         updateFeaturedStrip();
         renderMainContent();
-
-        const ui = appState.getUi();
-        if (!ui.motivationShown) {
-            showMotivationalToast();
-            appState.setMotivationShown(true);
-        }
     });
 
     document.getElementById("backHomeBtn")?.addEventListener("click", (e) => {
@@ -325,7 +319,19 @@ function initSlideNav() {
     const nav = document.getElementById("slideNav");
     const backdrop = document.getElementById("slideNavBackdrop");
     const closeBtn = document.getElementById("slideNavClose");
-
+    // sync toggle با تم فعلی
+    const slideToggle = document.getElementById("slideNavThemeToggle");
+    if (slideToggle) {
+        slideToggle.checked = document.body.classList.contains("dark");
+        slideToggle.addEventListener("change", () => {
+            document.body.classList.toggle("dark", slideToggle.checked);
+            const isDark = slideToggle.checked;
+            appState.setDarkMode(isDark);
+            localStorage.setItem("cafe_dark", isDark);
+            const mainToggle = document.getElementById("themeToggle");
+            if (mainToggle) mainToggle.textContent = isDark ? "☀️" : "🌙";
+        });
+    }
     function openNav() {
         nav.classList.add("open");
         btn.classList.add("open");
@@ -376,6 +382,15 @@ async function bootstrap() {
     renderCategoriesSlider();
     initHeaderScroll();
     initSlideNav();
+
+    // نمایش پیام انگیزشی در صفحه اول
+    const ui = appState.getUi();
+    if (!ui.motivationShown) {
+        setTimeout(() => {
+            showMotivationalToast();
+            appState.setMotivationShown(true);
+        }, 1200); // کمی تأخیر تا صفحه لود بشه
+    }
 }
 
 bootstrap();

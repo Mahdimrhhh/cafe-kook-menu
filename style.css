@@ -338,9 +338,10 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
+            width: 44px;
             padding: 8px 14px;
             border-radius: 40px;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(168, 45, 45, 0.12);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -450,7 +451,8 @@
             display: flex;
             flex-direction: column;
             gap: 5px;
-            background: rgba(255,255,255,0.12);
+            width: 44px;
+            background:  rgba(113, 31, 31, 0.12);
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 60px;
             padding: 10px 12px;
@@ -496,97 +498,180 @@
             transition: background 0.35s ease;
         }
         .slide-nav.open .slide-nav-backdrop {
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(3px);
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
         }
         .slide-nav-panel {
-           position: absolute;
-           top: 0;
-           left: 0;
-           right: 0;
-           width: 100%;
-           max-height: 85vh;
-           background: linear-gradient(160deg, #3a2210, #2a1a0e);
-           border-bottom: 1px solid rgba(198,139,84,0.2);
-           transform: translateY(-100%);
-           transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
-           display: flex;
-           flex-direction: column;
-           box-shadow: 0 12px 40px rgba(0,0,0,0.5);
-           border-radius: 0 0 24px 24px;
-           overflow-y: auto;   
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: min(300px, 85vw);
+            height: 100%;
+            background: #1e110a;
+            border-left: 1px solid rgba(198,139,84,0.15);
+            transform: translateX(100%);
+            transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: -16px 0 48px rgba(0,0,0,0.6);
         }
         .slide-nav.open .slide-nav-panel {
-            transform: translateY(0);
+            transform: translateX(0);
         }
+
+        /* هدر منو */
         .slide-nav-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 52px 20px 20px;
-            border-bottom: 1px solid rgba(198,139,84,0.15);
+            padding: 52px 20px 24px;
         }
         .slide-nav-logo {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1.15rem;
+            font-weight: 800;
             color: var(--gold);
-            letter-spacing: -0.3px;
+            letter-spacing: 0.5px;
         }
         .slide-nav-close {
             background: rgba(255,255,255,0.08);
             border: 1px solid rgba(255,255,255,0.12);
             color: #fff;
-            border-radius: 10px;
-            width: 34px;
-            height: 34px;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: background 0.2s;
         }
         .slide-nav-close:hover {
             background: rgba(255,255,255,0.15);
         }
+
+        /* لیست لینک‌ها */
         .slide-nav-links {
             list-style: none;
-            padding: 16px 12px;
-            flex: 1;
+            padding: 8px 16px;
+            
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            background: #2a1a0e;
+            margin: 0 16px;
+            border-radius: 20px;
+            gap: 0;
+        }
+        .slide-nav-links li {
+            border-bottom: 1px solid rgba(198,139,84,0.1);
+        }
+        .slide-nav-links li:last-child {
+            border-bottom: none;
         }
         .slide-nav-link {
             display: flex;
             align-items: center;
-            gap: 14px;
-            padding: 16px 16px;
-            border-radius: 16px;
-            color: var(--text-primary);
+            gap: 16px;
+            padding: 18px 12px;
+            color: #f0dfc8;
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
-            transition: background 0.2s, transform 0.2s;
-            border: 1px solid transparent;
+            transition: color 0.2s;
         }
         .slide-nav-link:hover {
-            background: rgba(198,139,84,0.12);
-            border-color: rgba(198,139,84,0.2);
-            transform: translateX(-4px);
+            color: var(--gold);
+        }
+        .slide-nav-link:hover .slide-nav-icon {
+            transform: scale(1.1);
         }
         .slide-nav-icon {
-            font-size: 1.3rem;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(198,139,84,0.1);
-            border-radius: 10px;
-            flex-shrink: 0;
+            font-size: 1.2rem;
+            width: 28px;
+            text-align: center;
+            transition: transform 0.2s;
         }
         .slide-nav-arrow {
             margin-right: auto;
             font-size: 0.7rem;
+            color: rgba(198,139,84,0.4);
+        }
+
+        /* بخش تغییر تم */
+        .slide-nav-theme {
+            margin: 16px;
+            background: #2a1a0e;
+            border-radius: 20px;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .slide-nav-theme-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #f0dfc8;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .slide-nav-theme-label i {
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+        .theme-toggle-switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+        }
+        .theme-toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .theme-toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 28px;
+            cursor: pointer;
+            transition: background 0.3s;
+            border: 1px solid rgba(198,139,84,0.3);
+        }
+        .theme-toggle-slider::before {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: 4px;
+            top: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .theme-toggle-switch input:checked + .theme-toggle-slider {
+            background: rgba(198,139,84,0.25);
+        }
+        .theme-toggle-switch input:checked + .theme-toggle-slider::before {
+            transform: translateX(-24px);
+        }
+
+        /* شبکه‌های اجتماعی */
+        .slide-nav-social {
+            display: flex;
+            justify-content: center;
+            gap: 28px;
+            padding: 20px 16px 36px;
+        }
+        .slide-nav-social a {
             color: rgba(198,139,84,0.6);
+            font-size: 1.3rem;
+            transition: color 0.2s, transform 0.2s;
+            text-decoration: none;
+        }
+        .slide-nav-social a:hover {
+            color: var(--gold);
+            transform: translateY(-2px);
         }
 
         /* نوار جستجو و مرتب‌سازی */
@@ -600,7 +685,7 @@
             padding: 5px 8px;
             margin: 0 0 10px;
             box-shadow:
-                0 6px 20px rgba(184, 122, 68, 0.4),
+                0 0 2px rgba(184, 122, 68, 0.4),
                 0 0 0 1px rgba(198, 139, 84, 0.25);
         }
         body.dark .search-sort-bar {

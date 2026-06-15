@@ -42,15 +42,7 @@ export function renderMenuCard(item, expandedItemId) {
                         <strong>مواد تشکیل‌دهنده</strong>
                         <p>${item.ingredients || "—"}</p>
                     </div>
-                    <div class="card-detail-block">
-                        <strong>نحوه سرو</strong>
-                        <p>${item.servingStyle || "—"}</p>
-                    </div>
-                    ${item.notes ? `
-                    <div class="card-detail-block card-detail-notes">
-                        <strong>نکته</strong>
-                        <p>${item.notes}</p>
-                    </div>` : ""}
+                    
                 </div>
             </div>
         </article>
