@@ -1,0 +1,248 @@
+/**
+ * @file Login flow — phone, OTP, birthdate.
+ * NOTE: Backend not connected yet. OTP is simulated (always "12345").
+ * Replace simulateSendOtp/simulateVerifyOtp with real API calls later.
+ */
+
+const PERSIAN_MONTHS = [
+    "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
+    "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
+];
+
+let currentStep = 1;
+let phoneNumber = "";
+let timerInterval = null;
+
+function toPersianDigits(str) {
+    const fa = ["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];
+    return String(str).replace(/[0-9]/g, d => fa[d]);
+}
+
+function toEnglishDigits(str) {
+    return String(str).replace(/[۰-۹]/g, d => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+}
+
+function isValidIranianPhone(phone) {
+    return /^09\d{9}$/.test(phone);
+}
+
+function goToStep(step) {
+    document.querySelectorAll(".login-step").forEach(el => {
+        el.classList.toggle("active", parseInt(el.dataset.step, 10) === step);
+    });
+    document.querySelectorAll(".login-step-dot").forEach(dot => {
+        const dotStep = parseInt(dot.dataset.step, 10);
+        dot.classList.toggle("active", dotStep === step);
+        dot.classList.toggle("done", dotStep < step);
+    });
+    currentStep = step;
+
+    const subtitle = document.getElementById("loginSubtitle");
+    if (step === 1) subtitle.textContent = "برای ثبت نظر و دریافت کادوی تولد، وارد شو";
+    if (step === 2) subtitle.textContent = "کد ۵ رقمی رو وارد کن";
+    if (step === 3) subtitle.textContent = "یک قدم تا تکمیل ثبت‌نام";
+}
+
+function startTimer(seconds) {
+    clearInterval(timerInterval);
+    const resendBtn = document.getElementById("resendBtn");
+    const display = document.getElementById("timerDisplay");
+    resendBtn.disabled = true;
+
+    let remaining = seconds;
+    function render() {
+        const m = String(Math.floor(remaining / 60)).padStart(2, "0");
+        const s = String(remaining % 60).padStart(2, "0");
+        display.textContent = toPersianDigits(`${m}:${s}`);
+    }
+    render();
+
+    timerInterval = setInterval(() => {
+        remaining--;
+        render();
+        if (remaining <= 0) {
+            clearInterval(timerInterval);
+            resendBtn.disabled = false;
+            display.textContent = "";
+        }
+    }, 1000);
+}
+
+// شبیه‌سازی ارسال کد — بک‌اند بعداً اینجا وصل می‌شود
+function simulateSendOtp(phone) {
+    return new Promise(resolve => {
+        console.log(`[شبیه‌سازی] کد تایید برای ${phone} ارسال شد: 12345`);
+        setTimeout(resolve, 500);
+    });
+}
+
+// شبیه‌سازی تایید کد — بک‌اند بعداً اینجا وصل می‌شود
+function simulateVerifyOtp(phone, code) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (code === "12345") resolve({ isNewUser: true });
+            else reject(new Error("کد وارد شده اشتباه است"));
+        }, 500);
+    });
+}
+
+function populateDateSelects() {
+    const dayEl = document.getElementById("birthDay");
+    const monthEl = document.getElementById("birthMonth");
+    const yearEl = document.getElementById("birthYear");
+
+    for (let d = 1; d <= 31; d++) {
+        const opt = document.createElement("option");
+        opt.value = d;
+        opt.textContent = toPersianDigits(d);
+        dayEl.appendChild(opt);
+    }
+
+    PERSIAN_MONTHS.forEach((name, i) => {
+        const opt = document.createElement("option");
+        opt.value = i + 1;
+        opt.textContent = name;
+        monthEl.appendChild(opt);
+    });
+
+    const currentJalaliYear = 1404;
+    for (let y = currentJalaliYear - 14; y >= currentJalaliYear - 90; y--) {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = toPersianDigits(y);
+        yearEl.appendChild(opt);
+    }
+}
+
+function initPhoneStep() {
+    const phoneInput = document.getElementById("phoneInput");
+    const sendBtn = document.getElementById("sendCodeBtn");
+    const errorEl = document.getElementById("phoneError");
+
+    phoneInput.addEventListener("input", (e) => {
+        e.target.value = toEnglishDigits(e.target.value).replace(/[^\d]/g, "");
+        errorEl.textContent = "";
+    });
+
+    sendBtn.addEventListener("click", async () => {
+        const phone = toEnglishDigits(phoneInput.value).replace(/[^\d]/g, "");
+
+        if (!isValidIranianPhone(phone)) {
+            errorEl.textContent = "شماره موبایل را صحیح وارد کنید";
+            return;
+        }
+
+        errorEl.textContent = "";
+        sendBtn.disabled = true;
+        sendBtn.innerHTML = '<span>در حال ارسال...</span>';
+
+        phoneNumber = phone;
+        await simulateSendOtp(phone);
+
+        sendBtn.disabled = false;
+        sendBtn.innerHTML = '<span>ارسال کد تایید</span><i class="fas fa-arrow-left"></i>';
+
+        document.getElementById("phoneDisplay").textContent = toPersianDigits(phone);
+        goToStep(2);
+        startTimer(60);
+        document.querySelector('[data-otp-index="0"]').focus();
+    });
+}
+
+function initOtpStep() {
+    const boxes = document.querySelectorAll(".login-otp-box");
+    const errorEl = document.getElementById("otpError");
+    const verifyBtn = document.getElementById("verifyCodeBtn");
+    const resendBtn = document.getElementById("resendBtn");
+    const backBtn = document.getElementById("backToPhoneBtn");
+
+    boxes.forEach((box, idx) => {
+        box.addEventListener("input", (e) => {
+            e.target.value = toEnglishDigits(e.target.value).replace(/[^\d]/g, "").slice(0, 1);
+            errorEl.textContent = "";
+            if (e.target.value && idx < boxes.length - 1) {
+                boxes[idx + 1].focus();
+            }
+        });
+
+        box.addEventListener("keydown", (e) => {
+            if (e.key === "Backspace" && !box.value && idx > 0) {
+                boxes[idx - 1].focus();
+            }
+        });
+    });
+
+    verifyBtn.addEventListener("click", async () => {
+        const code = Array.from(boxes).map(b => b.value).join("");
+
+        if (code.length !== 5) {
+            errorEl.textContent = "کد ۵ رقمی را کامل وارد کنید";
+            return;
+        }
+
+        verifyBtn.disabled = true;
+        verifyBtn.innerHTML = '<span>در حال بررسی...</span>';
+
+        try {
+            const result = await simulateVerifyOtp(phoneNumber, code);
+            verifyBtn.disabled = false;
+            verifyBtn.innerHTML = '<span>تایید کد</span><i class="fas fa-arrow-left"></i>';
+
+            if (result.isNewUser) {
+                goToStep(3);
+            } else {
+                window.location.href = "./index.html";
+            }
+        } catch (err) {
+            verifyBtn.disabled = false;
+            verifyBtn.innerHTML = '<span>تایید کد</span><i class="fas fa-arrow-left"></i>';
+            errorEl.textContent = err.message;
+            boxes.forEach(b => b.value = "");
+            boxes[0].focus();
+        }
+    });
+
+    resendBtn.addEventListener("click", async () => {
+        await simulateSendOtp(phoneNumber);
+        startTimer(60);
+        boxes.forEach(b => b.value = "");
+        boxes[0].focus();
+    });
+
+    backBtn.addEventListener("click", () => {
+        clearInterval(timerInterval);
+        goToStep(1);
+    });
+}
+
+function initBirthdateStep() {
+    const finishBtn = document.getElementById("finishBtn");
+    const skipBtn = document.getElementById("skipBirthBtn");
+    const errorEl = document.getElementById("birthError");
+
+    finishBtn.addEventListener("click", () => {
+        const day = document.getElementById("birthDay").value;
+        const month = document.getElementById("birthMonth").value;
+        const year = document.getElementById("birthYear").value;
+
+        if (!day || !month || !year) {
+            errorEl.textContent = "تاریخ تولد را کامل انتخاب کنید";
+            return;
+        }
+
+        localStorage.setItem("cafe_user_phone", phoneNumber);
+        localStorage.setItem("cafe_user_birthdate", `${year}-${month}-${day}`);
+
+        window.location.href = "./index.html";
+    });
+
+    skipBtn.addEventListener("click", () => {
+        localStorage.setItem("cafe_user_phone", phoneNumber);
+        window.location.href = "./index.html";
+    });
+}
+
+populateDateSelects();
+initPhoneStep();
+initOtpStep();
+initBirthdateStep();

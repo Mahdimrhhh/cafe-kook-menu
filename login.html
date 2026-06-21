@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ورود | کافه کوک</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./login.css">
+</head>
+<body class="login-body">
+
+    <div class="login-wrap">
+        <div class="login-bg-glow" aria-hidden="true"></div>
+
+        <div class="login-card">
+            <div class="login-brand">
+                <div class="login-logo-ring">
+                    <i class="fas fa-mug-hot"></i>
+                </div>
+                <h1>کافه کوک</h1>
+                <p id="loginSubtitle">برای ثبت نظر و دریافت کادوی تولد، وارد شو</p>
+            </div>
+
+            <div class="login-stepper">
+                <span class="login-step-dot active" data-step="1"></span>
+                <span class="login-step-line"></span>
+                <span class="login-step-dot" data-step="2"></span>
+                <span class="login-step-line"></span>
+                <span class="login-step-dot" data-step="3"></span>
+            </div>
+
+            <form class="login-form" id="loginForm" novalidate>
+
+                <div class="login-step active" data-step="1">
+                    <label class="login-label" for="phoneInput">شماره موبایل</label>
+                    <div class="login-input-group">
+                        <i class="fas fa-mobile-screen-button"></i>
+                        <input
+                            type="tel"
+                            id="phoneInput"
+                            class="login-input"
+                            placeholder="۰۹۱۲۳۴۵۶۷۸۹"
+                            inputmode="numeric"
+                            maxlength="11"
+                            autocomplete="tel"
+                        >
+                    </div>
+                    <p class="login-error" id="phoneError"></p>
+                    <button type="button" class="login-btn-primary" id="sendCodeBtn">
+                        <span>ارسال کد تایید</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </div>
+
+                <div class="login-step" data-step="2">
+                    <label class="login-label">کد تایید ارسال‌شده به <span id="phoneDisplay"></span></label>
+                    <div class="login-otp-group" id="otpGroup">
+                        <input type="text" inputmode="numeric" maxlength="1" class="login-otp-box" data-otp-index="0">
+                        <input type="text" inputmode="numeric" maxlength="1" class="login-otp-box" data-otp-index="1">
+                        <input type="text" inputmode="numeric" maxlength="1" class="login-otp-box" data-otp-index="2">
+                        <input type="text" inputmode="numeric" maxlength="1" class="login-otp-box" data-otp-index="3">
+                        <input type="text" inputmode="numeric" maxlength="1" class="login-otp-box" data-otp-index="4">
+                    </div>
+                    <p class="login-error" id="otpError"></p>
+
+                    <div class="login-timer-row">
+                        <button type="button" class="login-resend-btn" id="resendBtn" disabled>
+                            ارسال دوباره کد
+                        </button>
+                        <span class="login-timer" id="timerDisplay">۰۱:۰۰</span>
+                    </div>
+
+                    <button type="button" class="login-btn-primary" id="verifyCodeBtn">
+                        <span>تایید کد</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <button type="button" class="login-btn-ghost" id="backToPhoneBtn">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>اصلاح شماره</span>
+                    </button>
+                </div>
+
+                <div class="login-step" data-step="3">
+                    <div class="login-gift-banner">
+                        <i class="fas fa-gift"></i>
+                        <p>تاریخ تولدت رو بگو تا روز تولدت یه هدیه ویژه برات بفرستیم 🎉</p>
+                    </div>
+
+                    <label class="login-label">تاریخ تولد</label>
+                    <div class="login-date-row">
+                        <select class="login-select" id="birthDay">
+                            <option value="">روز</option>
+                        </select>
+                        <select class="login-select" id="birthMonth">
+                            <option value="">ماه</option>
+                        </select>
+                        <select class="login-select" id="birthYear">
+                            <option value="">سال</option>
+                        </select>
+                    </div>
+                    <p class="login-error" id="birthError"></p>
+
+                    <button type="button" class="login-btn-primary" id="finishBtn">
+                        <span>ورود به کافه کوک</span>
+                        <i class="fas fa-mug-hot"></i>
+                    </button>
+                    <button type="button" class="login-skip-btn" id="skipBirthBtn">
+                        فعلاً رد شو
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script src="./login.js"></script>
+</body>
+</html>

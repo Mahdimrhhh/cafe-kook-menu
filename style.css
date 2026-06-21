@@ -673,50 +673,74 @@
             color: var(--gold);
             transform: translateY(-2px);
         }
+        /* بخش ثبت نام  */
+        .slide-nav-login-link {
+            margin: 0 16px 16px;
+            background: linear-gradient(135deg, #e0ad78, #b87a44);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #2a1a0e;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+        .slide-nav-login-link i {
+            font-size: 1.1rem;
+        }
 
         /* نوار جستجو و مرتب‌سازی */
         .search-sort-bar {
             display: flex;
-            gap: 10px;
-            align-items: center;
-            background: var(--border-accent);
-            backdrop-filter: blur(8px);
-            border-radius: 60px;
-            padding: 5px 8px;
-            margin: 0 0 10px;
-            box-shadow:
-                0 0 2px rgba(184, 122, 68, 0.4),
-                0 0 0 1px rgba(198, 139, 84, 0.25);
+            margin: 0 0 14px;
         }
-        body.dark .search-sort-bar {
-            background: #7e522ed9;
-        }
+       
         .search-box {
             flex: 1;
             display: flex;
             align-items: center;
-            background: var(--coffee);
-            border-radius: 60px;
-            padding: 0 16px;
-            gap: 8px;
+            gap: 12px;
+            background: linear-gradient(145deg, var(--bg-card), var(--bg-elevated));
+            border: 1.5px solid var(--border-accent);
+            border-radius: 50px;
+            padding: 4px 8px 4px 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
         }
-        body.dark .search-box {
-            background: #072307;
-        }
+        
         .search-box input {
             flex: 1;
-            padding: 12px 0;
+            padding: 13px 0;
             border: none;
             background: transparent;
+            color: var(--text-primary);
             font-family: 'Vazirmatn';
+            font-size: 0.92rem;
             outline: none;
         }
+        .search-box input::placeholder {
+            color: var(--text-secondary);
+            opacity: 0.6;
+        }
         .search-box button {
-            background: none;
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0ad78, #b87a44);
             border: none;
-            color: #b87a44;
+            border-radius: 50%;
+            color: #2a1a0e;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
+            transition: transform 0.2s;
+        }
+        .search-box button:active {
+            transform: scale(0.9);
         }
         .sort-btn {
             background:var(--coffee);
