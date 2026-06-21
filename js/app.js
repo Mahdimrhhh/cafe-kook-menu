@@ -216,26 +216,7 @@ async function renderMainContent() {
     bindReviewForm();
 }
 
-function initThemeToggle() {
-    const themeBtn = document.getElementById("themeToggle");
-    if (!themeBtn) return;
 
-    const ui = appState.getUi();
-    if (ui.darkMode) {
-        document.body.classList.add("dark");
-        themeBtn.textContent = "☀️";
-    } else {
-        themeBtn.textContent = "🌙";
-    }
-
-    themeBtn.addEventListener("click", () => {
-        document.body.classList.toggle("dark");
-        const isDark = document.body.classList.contains("dark");
-        appState.setDarkMode(isDark);
-        localStorage.setItem("cafe_dark", isDark);
-        themeBtn.textContent = isDark ? "☀️" : "🌙";
-    });
-}
 
 function initSearchAndSort() {
     const searchInput = document.getElementById("searchInput");
@@ -322,14 +303,17 @@ function initSlideNav() {
     // sync toggle با تم فعلی
     const slideToggle = document.getElementById("slideNavThemeToggle");
     if (slideToggle) {
+        const ui = appState.getUi();
+        if (ui.darkMode) {
+            document.body.classList.add("dark");
+        }
         slideToggle.checked = document.body.classList.contains("dark");
+
         slideToggle.addEventListener("change", () => {
             document.body.classList.toggle("dark", slideToggle.checked);
             const isDark = slideToggle.checked;
             appState.setDarkMode(isDark);
             localStorage.setItem("cafe_dark", isDark);
-            const mainToggle = document.getElementById("themeToggle");
-            if (mainToggle) mainToggle.textContent = isDark ? "☀️" : "🌙";
         });
     }
     function openNav() {
@@ -375,7 +359,6 @@ function initSlideNav() {
 }
 async function bootstrap() {
     await initServices();
-    initThemeToggle();
     initSearchAndSort();
     initNavigation();
     initFooter();
