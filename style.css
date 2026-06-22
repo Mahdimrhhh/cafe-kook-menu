@@ -355,7 +355,7 @@
             position: absolute;
             inset: 0;
             background:
-                url('./img/IMG_20240101_001637_353.jpg') center / cover no-repeat;
+                url('./img/IMG_6353.PNG') center / cover no-repeat;
             transform: scale(1.05);
             filter: brightness(0.7) saturate(1.15);
         }
