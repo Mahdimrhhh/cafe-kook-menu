@@ -51,7 +51,7 @@ body.dark .coffee-finder-section {
 
 .cf-progress {
     height: 4px;
-    background: rgba(184, 122, 68, 0.15);
+    background: #5a3a5a;
     border-radius: 2px;
     margin-bottom: 8px;
     overflow: hidden;
