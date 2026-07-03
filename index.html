@@ -89,21 +89,20 @@
 
         <section class="menu-controls">
             <div class="search-sort-bar">
-                <div class="search-box">
+                <!-- آیکون سرچ -->
+                <button class="search-icon-btn" id="searchIconBtn" aria-label="جستجو">
+                    <i class="fas fa-search"></i>
+                </button>
+                
+                <!-- باکس سرچ (مخفی) -->
+                <div class="search-box hidden" id="searchBox">
                     <i class="fas fa-search"></i>
                     <input type="text" id="searchInput" placeholder="جستجوی قهوه، دسر، ساندویچ...">
                     <button id="clearSearchBtn"><i class="fas fa-times-circle"></i></button>
+                    <button class="search-close-btn" id="searchCloseBtn">✕</button>
                 </div>
             </div>
 
-            <div class="featured-strip">
-                <div class="featured-strip-badge">⭐ پیشنهاد امروز</div>
-                <div class="featured-strip-info">
-                    <h3>لاته کلاسیک</h3>
-                    <p>محبوب‌ترین نوشیدنی این هفته</p>
-                </div>
-                <span class="featured-strip-price">۹۲,۰۰۰ تومان</span>
-            </div>
 
             <div class="categories-wrapper">
                 <div class="categories-slider" id="categoriesSlider"></div>

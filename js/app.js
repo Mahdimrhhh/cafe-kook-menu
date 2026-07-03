@@ -20,6 +20,7 @@ import {
 import { renderReviewSection } from "./ui/reviewRenderer.js";
 import { renderFooter } from "./ui/footerRenderer.js";
 import { renderCoffeeFinder, initCoffeeFinder } from "./ui/coffeeFinderRenderer.js";
+import { showToast } from "./notifications/toastService.js";
 
 async function initServices() {
     await Promise.all([
@@ -219,33 +220,45 @@ async function renderMainContent() {
 
 
 function initSearchAndSort() {
+    const searchIconBtn = document.getElementById("searchIconBtn");
+    const searchBox = document.getElementById("searchBox");
     const searchInput = document.getElementById("searchInput");
-    const sortBtn = document.getElementById("sortBtn");
+    const clearBtn = document.getElementById("clearSearchBtn");
+    const closeBtn = document.getElementById("searchCloseBtn");
 
-    sortBtn?.addEventListener("click", () => {
-        const ui = appState.getUi();
-        let mode = ui.sortMode;
-        if (mode === "default") mode = "price_asc";
-        else if (mode === "price_asc") mode = "price_desc";
-        else mode = "default";
-        appState.setSortMode(mode);
+    function toggleSearch() {
+        const isActive = searchBox.classList.contains("active");
+        if (isActive) {
+            searchBox.classList.remove("active");
+            searchIconBtn.classList.remove("active");
+        } else {
+            searchBox.classList.add("active");
+            searchIconBtn.classList.add("active");
+            searchInput.focus();
+        }
+    }
 
-        if (mode === "price_asc") sortBtn.innerHTML = '<i class="fas fa-arrow-up-wide-short"></i> ارزان‌ترین';
-        else if (mode === "price_desc") sortBtn.innerHTML = '<i class="fas fa-arrow-down-wide-short"></i> گران‌ترین';
-        else sortBtn.innerHTML = '<i class="fas fa-clock"></i> پیش‌فرض';
-
-        renderMainContent();
-    });
+    searchIconBtn?.addEventListener("click", toggleSearch);
+    closeBtn?.addEventListener("click", toggleSearch);
 
     searchInput?.addEventListener("input", (e) => {
         appState.setSearchQuery(e.target.value);
         renderMainContent();
     });
 
-    document.getElementById("clearSearchBtn")?.addEventListener("click", () => {
-        if (searchInput) searchInput.value = "";
-        appState.setSearchQuery("");
-        renderMainContent();
+    clearBtn?.addEventListener("click", () => {
+        if (searchInput) {
+            searchInput.value = "";
+            appState.setSearchQuery("");
+            renderMainContent();
+        }
+    });
+
+    // بستن با Esc
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && searchBox.classList.contains("active")) {
+            toggleSearch();
+        }
     });
 }
 
@@ -265,6 +278,21 @@ function showMenuView() {
     document.body.classList.remove("home-view");
     document.getElementById("homePage").style.display = "none";
     document.getElementById("mainApp").classList.add("active");
+
+    // رندر کردن محتویات صفحه اصلی
+    renderCategoriesSlider();
+    renderMainContent();
+
+    // نمایش پاپ‌آپ پیشنهاد روز بعد از ورود به منو
+    setTimeout(() => {
+        const products = appState.getProducts();
+        if (!products || products.length === 0) return;
+
+        const featured = products.filter(p => p.featured && p.available);
+        const product = featured.length ? featured[0] : products[0];
+        
+        showFeaturedPopup(product);
+    }, 1800);
 }
 
 function showHomeView() {
@@ -375,8 +403,46 @@ async function bootstrap() {
         }, 1200); // کمی تأخیر تا صفحه لود بشه
     }
 }
-
 bootstrap();
+// پاپ‌آپ بزرگ پیشنهاد روز (وسط صفحه)
+function showFeaturedPopup(product) {
+    // اگر قبلاً وجود داشت حذف شود
+    const existing = document.getElementById("featuredPopup");
+    if (existing) existing.remove();
+
+    const popup = document.createElement("div");
+    popup.id = "featuredPopup";
+    popup.innerHTML = `
+        <div class="featured-popup-overlay"></div>
+        <div class="featured-popup">
+            <button class="popup-close">✕</button>
+            <div class="popup-image">
+                <img src="${product.image || './img/default.jpg'}" alt="${product.name}">
+            </div>
+            <div class="popup-content">
+                <span class="popup-badge">⭐ پیشنهاد ویژه امروز</span>
+                <h3>${product.name}</h3>
+                <p class="popup-desc">${product.description}</p>
+                <div class="popup-price">${product.price.toLocaleString('fa-IR')} تومان</div>
+                <button class="popup-add-btn">اضافه به سبد خرید</button>
+            </div>
+        </div>
+    `;
+
+    document.body.appendChild(popup);
+
+    // انیمیشن ورود
+    setTimeout(() => popup.classList.add("active"), 50);
+
+    // بستن
+    popup.querySelector(".popup-close").onclick = () => popup.remove();
+    popup.querySelector(".featured-popup-overlay").onclick = () => popup.remove();
+
+    // خودکار بعد از ۶ ثانیه بسته شود
+    setTimeout(() => {
+        if (popup.parentNode) popup.remove();
+    }, 6000);
+}
 
 // Export for future admin panel integration
 export { appState, productService, categoryService, reviewService, knowledgeService };
