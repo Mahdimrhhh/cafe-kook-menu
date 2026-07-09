@@ -221,25 +221,30 @@ async function renderMainContent() {
 
 function initSearchAndSort() {
     const searchIconBtn = document.getElementById("searchIconBtn");
-    const searchBox = document.getElementById("searchBox");
     const searchInput = document.getElementById("searchInput");
     const clearBtn = document.getElementById("clearSearchBtn");
-    const closeBtn = document.getElementById("searchCloseBtn");
+
+    // اگر searchBox هنوز وجود داره (برای سازگاری)
+    const searchBox = document.getElementById("searchBox");
 
     function toggleSearch() {
-        const isActive = searchBox.classList.contains("active");
-        if (isActive) {
-            searchBox.classList.remove("active");
-            searchIconBtn.classList.remove("active");
+        if (searchBox) {
+            const isActive = searchBox.classList.contains("active");
+            if (isActive) {
+                searchBox.classList.remove("active");
+                searchIconBtn.classList.remove("active");
+            } else {
+                searchBox.classList.add("active");
+                searchIconBtn.classList.add("active");
+                searchInput.focus();
+            }
         } else {
-            searchBox.classList.add("active");
-            searchIconBtn.classList.add("active");
+            // اگر searchBox وجود نداشت، فقط فوکوس روی input
             searchInput.focus();
         }
     }
 
     searchIconBtn?.addEventListener("click", toggleSearch);
-    closeBtn?.addEventListener("click", toggleSearch);
 
     searchInput?.addEventListener("input", (e) => {
         appState.setSearchQuery(e.target.value);
@@ -254,9 +259,8 @@ function initSearchAndSort() {
         }
     });
 
-    // بستن با Esc
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && searchBox.classList.contains("active")) {
+        if (e.key === "Escape" && searchBox && searchBox.classList.contains("active")) {
             toggleSearch();
         }
     });

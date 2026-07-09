@@ -535,7 +535,7 @@
         .menu-controls {
             position: relative;
             z-index: 3;
-            padding: 12px 16px 0;
+            padding: 12px 16px 20px;
         }
 
 
@@ -859,9 +859,10 @@
             padding: 0 4px;
         }
 
+        /* آیکون جستجو کنار همبرگر */
         .search-icon-btn {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -869,19 +870,27 @@
             border: 1.5px solid rgba(198, 139, 84, 0.35);
             border-radius: 50%;
             color: var(--coffee);
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
+            transition: all 0.25s ease;
+            flex-shrink: 0;     /* جلوگیری از کوچک شدن */
         }
 
         .search-icon-btn:hover,
         .search-icon-btn.active {
-            background: rgba(184, 122, 68, 0.15);
+            background: rgba(184, 122, 68, 0.25);
             border-color: var(--coffee);
-            transform: scale(1.08);
+            transform: scale(1.1);
         }
 
+        /* تنظیم فاصله هدر */
+        .hero-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;           /* فاصله خیلی کم */
+            padding: 16px;
+        }
+        
         .search-box {
             display: none;
             align-items: center;
