@@ -354,6 +354,12 @@
             margin-bottom: -36px;
             z-index: 1;
         }
+        .header-left-group {
+            display: flex;
+            align-items: center;
+            gap: 6px;           /* فاصله خیلی کم بین همبرگر و جستجو */
+            margin-right: -13px;
+        }
 
         .hero-header-image {
             position: absolute;
@@ -443,6 +449,7 @@
             font-weight: 500;
             text-decoration: none;
             transition: background 0.2s ease;
+            margin-left: 20px;
         }
 
         .back-btn:active {
@@ -887,8 +894,9 @@
         .hero-top {
             display: flex;
             align-items: center;
-            gap: 8px;           /* فاصله خیلی کم */
-            padding: 16px;
+            justify-content: space-between;   /* همبرگر و بک دکمه در دو طرف */
+            width: 100%;
+            padding: 16px 16px;
         }
         
         .search-box {
