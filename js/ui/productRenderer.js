@@ -15,7 +15,7 @@ export function renderMenuCard(item, expandedItemId) {
     const isExpanded = expandedItemId === item.id;
 
     return `
-        <article class="menu-card ${isExpanded ? "expanded" : ""}" data-id="${item.id}">
+       <article class="menu-card ${isExpanded ? "expanded" : ""}" draggable="true" data-id="${item.id}">
             <div class="menu-card-main">
                 <div class="menu-card-image-wrap">
                     <img src="${imgSrc}" alt="${item.name}" id="img-${item.id}" loading="lazy">
@@ -30,6 +30,7 @@ export function renderMenuCard(item, expandedItemId) {
                         <i class="fas fa-chevron-${isExpanded ? "up" : "down"}"></i>
                         <span>${isExpanded ? "بستن" : "جزئیات"}</span>
                     </button>
+                    
                 </div>
             </div>
             <div class="menu-card-expand ${isExpanded ? "open" : ""}">

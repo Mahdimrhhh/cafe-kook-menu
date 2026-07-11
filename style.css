@@ -938,7 +938,8 @@
             background: rgba(0,0,0,0.3);
         }
         
-
+        
+        
         /* پیشنهاد روز — نوار فشرده */
         .featured-strip {
             display: flex;
@@ -1117,6 +1118,7 @@
         }
 
         /* اسلایدر سرفصل‌ها */
+        
         .categories-slider {
             display: flex;
             gap: 10px;
@@ -1271,6 +1273,125 @@
             font-size: 0.62rem;
             opacity: 0.7;
             margin-top: 2px;
+        }
+        /* دکمه ثابت دفتر یادداشت */
+        .notebook-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #b87a44, #d4956a);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(184, 122, 68, 0.4);
+            z-index: 1000;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .notebook-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .notebook-count {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #ff4757;
+            color: white;
+            font-size: 0.75rem;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* پنل دفتر یادداشت */
+        .notebook-panel {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 65%;
+            background: var(--bg-card);
+            border-radius: 28px 28px 0 0;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+            z-index: 1100;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .notebook-panel.open {
+            transform: translateY(0);
+        }
+
+        .notebook-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(198, 139, 84, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .notebook-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+        }
+
+        .notebook-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(198, 139, 84, 0.1);
+        }
+
+        .notebook-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(198, 139, 84, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .checkout-btn {
+            background: linear-gradient(135deg, #b87a44, #d4956a);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+        }
+        .add-to-notebook-btn {
+            background: rgba(184, 122, 68, 0.15);
+            border: 1px solid rgba(198, 139, 84, 0.4);
+            color: var(--coffee);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-to-notebook-btn:hover {
+            background: var(--coffee);
+            color: white;
+            transform: scale(1.1);
         }
 
         /* منو گرید */
@@ -2419,3 +2540,4 @@
                 font-size: 0.95rem;
             }
         }
+        

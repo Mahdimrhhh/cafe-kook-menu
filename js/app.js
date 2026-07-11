@@ -161,6 +161,16 @@ function bindExpandButtons() {
             }
         };
     });
+
+    // اضافه کردن به دفتر (خارج از لوپ)
+    document.querySelectorAll(".add-to-notebook-btn").forEach(btn => {
+        btn.onclick = (e) => {
+            e.stopPropagation();
+            const id = parseInt(btn.dataset.id);
+            const product = appState.getProducts().find(p => p.id === id);
+            if (product) addToNotebook(product);
+        };
+    });
 }
 
 function bindReviewForm() {
@@ -215,6 +225,37 @@ async function renderMainContent() {
     initCoffeeFinder(appState.getProducts());
     bindExpandButtons();
     bindReviewForm();
+        bindReviewForm();
+
+    // اضافه کردن به دفتر (روش مطمئن)
+    const handleAddToNotebook = (e) => {
+        const btn = e.target.closest(".add-to-notebook-btn");
+        if (btn) {
+            e.stopPropagation();
+            const id = parseInt(btn.dataset.id);
+            const product = appState.getProducts().find(p => p.id === id);
+            if (product) {
+                addToNotebook(product);
+            }
+        }
+    };
+
+    // حذف listener قبلی و اضافه کردن جدید
+    document.removeEventListener("click", handleAddToNotebook);
+    document.addEventListener("click", handleAddToNotebook);
+    // اضافه کردن به دفتر با کلیک روی دکمه +
+    setTimeout(() => {
+        document.querySelectorAll(".add-to-notebook-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const id = parseInt(btn.dataset.id);
+                const product = appState.getProducts().find(p => p.id === id);
+                if (product) {
+                    addToNotebook(product);
+                }
+            });
+        });
+    }, 100);
 }
 
 
@@ -447,6 +488,100 @@ function showFeaturedPopup(product) {
         if (popup.parentNode) popup.remove();
     }, 6000);
 }
+// ==================== دفتر یادداشت سفارش ====================
+let notebook = [];
+
+function addToNotebook(product) {
+    const existing = notebook.find(item => item.id === product.id);
+    if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+    } else {
+        notebook.push({ ...product, quantity: 1 });
+    }
+    updateNotebookUI();
+    showToast(`${product.name} به دفتر اضافه شد`, { emoji: "📝" });
+}
+
+function removeFromNotebook(id) {
+    notebook = notebook.filter(item => item.id !== id);
+    updateNotebookUI();
+}
+
+function updateNotebookUI() {
+    const countEl = document.getElementById("notebookCount");
+    const itemsEl = document.getElementById("notebookItems");
+    const totalEl = document.getElementById("totalPrice");
+
+    if (countEl) countEl.textContent = notebook.length;
+
+    if (itemsEl) {
+        if (notebook.length === 0) {
+            itemsEl.innerHTML = `<p style="text-align:center; color:#aaa; padding:40px 20px;">هنوز سفارشی ثبت نشده</p>`;
+        } else {
+            let html = '';
+            let total = 0;
+
+            notebook.forEach(item => {
+                const itemTotal = item.price * (item.quantity || 1);
+                total += itemTotal;
+                html += `
+                    <div class="notebook-item">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>${item.quantity || 1} × ${item.price.toLocaleString('fa-IR')} تومان</small>
+                        </div>
+                        <div style="text-align:right">
+                            <span style="font-weight:700">${itemTotal.toLocaleString('fa-IR')} تومان</span>
+                            <button onclick="removeFromNotebook(${item.id})" style="margin-left:12px; color:#ff4757; background:none; border:none; font-size:1.2rem;">✕</button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            itemsEl.innerHTML = html;
+            if (totalEl) totalEl.textContent = `${total.toLocaleString('fa-IR')} تومان`;
+        }
+    }
+}
+
+function initNotebook() {
+    const notebookBtn = document.getElementById("notebookBtn");
+    const panel = document.getElementById("notebookPanel");
+    const closeBtn = document.getElementById("closeNotebook");
+
+    notebookBtn?.addEventListener("click", () => {
+        panel.classList.toggle("open");
+    });
+
+    closeBtn?.addEventListener("click", () => {
+        panel.classList.remove("open");
+    });
+
+    // Drag to add
+    document.addEventListener("dragstart", (e) => {
+        const card = e.target.closest(".menu-card");
+        if (card) {
+            e.dataTransfer.setData("text/plain", card.dataset.id);
+        }
+    });
+
+    document.addEventListener("dragover", (e) => {
+        e.preventDefault();
+    });
+
+    document.addEventListener("drop", (e) => {
+        e.preventDefault();
+        const idStr = e.dataTransfer.getData("text/plain");
+        const id = parseInt(idStr);
+        const product = appState.getProducts().find(p => p.id === id);
+        if (product) {
+            addToNotebook(product);
+        }
+    });
+}
+
+// فراخوانی در bootstrap
+initNotebook();
 
 // Export for future admin panel integration
 export { appState, productService, categoryService, reviewService, knowledgeService };
