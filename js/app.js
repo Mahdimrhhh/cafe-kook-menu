@@ -338,6 +338,8 @@ function showMenuView() {
         
         showFeaturedPopup(product);
     }, 1800);
+        const notebookBtn = document.getElementById("notebookBtn");
+        if (notebookBtn) notebookBtn.style.display = "flex";
 }
 
 function showHomeView() {
@@ -345,6 +347,10 @@ function showHomeView() {
     document.getElementById("homePage").style.display = "flex";
     document.getElementById("mainApp").classList.remove("active");
     stopGuideSlider();
+
+    // مخفی کردن دکمه دفتر در صفحه لندینگ
+    const notebookBtn = document.getElementById("notebookBtn");
+    if (notebookBtn) notebookBtn.style.display = "none";
 }
 
 function initNavigation() {
@@ -516,12 +522,12 @@ function updateNotebookUI() {
 
     if (itemsEl) {
         if (notebook.length === 0) {
-            itemsEl.innerHTML = `<p style="text-align:center; color:#aaa; padding:40px 20px;">هنوز سفارشی ثبت نشده</p>`;
+            itemsEl.innerHTML = `<p style="text-align:center; color:#aaa; padding:60px 20px;">هنوز سفارشی ثبت نشده</p>`;
         } else {
             let html = '';
             let total = 0;
 
-            notebook.forEach(item => {
+            notebook.forEach((item, index) => {
                 const itemTotal = item.price * (item.quantity || 1);
                 total += itemTotal;
                 html += `
@@ -531,8 +537,8 @@ function updateNotebookUI() {
                             <small>${item.quantity || 1} × ${item.price.toLocaleString('fa-IR')} تومان</small>
                         </div>
                         <div style="text-align:right">
-                            <span style="font-weight:700">${itemTotal.toLocaleString('fa-IR')} تومان</span>
-                            <button onclick="removeFromNotebook(${item.id})" style="margin-left:12px; color:#ff4757; background:none; border:none; font-size:1.2rem;">✕</button>
+                            <span style="font-weight:700;color:var(--coffee)">${itemTotal.toLocaleString('fa-IR')} تومان</span>
+                            <button onclick="removeFromNotebook(${item.id})" style="margin-left:16px; color:#ff4757; background:none; border:none; font-size:1.4rem; padding:4px; cursor:pointer;">🗑️</button>
                         </div>
                     </div>
                 `;

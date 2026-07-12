@@ -115,7 +115,29 @@
         <div id="dynamicContent"></div>
 
         <footer class="footer"></footer>
+        
+        <!-- دکمه ثابت دفتر یادداشت - فقط در صفحه اصلی -->
+        <button class="notebook-btn" id="notebookBtn" style="display: none;">
+            <i class="fas fa-note-sticky"></i>
+            <span class="notebook-count" id="notebookCount">0</span>
+        </button>
+
+        <!-- پنل دفتر یادداشت -->
+        <div class="notebook-panel" id="notebookPanel">
+            <div class="notebook-header">
+                <h3>سفارشات من</h3>
+                <button class="close-notebook" id="closeNotebook">✕</button>
+            </div>
+            <div class="notebook-items" id="notebookItems">
+                <!-- JS پر می‌کنه -->
+            </div>
+            <div class="notebook-footer">
+                <div class="total-price" id="totalPrice">۰ تومان</div>
+            </div>
+        </div>
+    </div>   <!-- پایان mainApp -->
     </div>
+    
 
     <div class="coffee-modal" id="coffeeModal">
         <div class="coffee-modal-box">
@@ -183,25 +205,5 @@
 
 
     <script type="module" src="./js/app.js"></script>
-    <!-- دکمه ثابت دفتر یادداشت -->
-    <button class="notebook-btn" id="notebookBtn">
-        <i class="fas fa-notebook"></i>
-        <span class="notebook-count" id="notebookCount">0</span>
-    </button>
-
-    <!-- پنل دفتر یادداشت -->
-    <div class="notebook-panel" id="notebookPanel">
-        <div class="notebook-header">
-            <h3>سفارشات من</h3>
-            <button class="close-notebook" id="closeNotebook">✕</button>
-        </div>
-        <div class="notebook-items" id="notebookItems">
-            <!-- JS پر می‌کنه -->
-        </div>
-        <div class="notebook-footer">
-            <div class="total-price" id="totalPrice">۰ تومان</div>
-            <button class="checkout-btn" id="checkoutBtn">ثبت سفارش</button>
-        </div>
-    </div>
 </body>
 </html>
