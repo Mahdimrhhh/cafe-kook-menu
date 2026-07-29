@@ -31,10 +31,11 @@ export const productService = {
         return products.find(p => p.id === id) || null;
     },
 
-    async getByCategory(categoryName) {
-        const products = await this.getAll();
-        return products.filter(p => p.category === categoryName && p.available);
-    },
+   async getByCategory(categoryName) {
+    const products = await this.getAll();
+    // موقتاً همه محصولات موجود رو برمی‌گردونه
+    return products.filter(p => p.available !== false);
+},
 
     async getFeatured() {
         const products = await this.getAll();
@@ -42,19 +43,17 @@ export const productService = {
     },
 
     async search(query, categoryName) {
-        const products = categoryName
-            ? await this.getByCategory(categoryName)
-            : (await this.getAll()).filter(p => p.available);
+    let products = await this.getAll();
+    products = products.filter(p => p.available !== false);
 
-        if (!query?.trim()) return products;
+    if (!query?.trim()) return products;
 
-        const q = query.trim();
-        return products.filter(p =>
-            p.name.includes(q) ||
-            p.description.includes(q) ||
-            (p.ingredients && p.ingredients.includes(q))
-        );
-    },
+    const q = query.trim();
+    return products.filter(p =>
+        (p.name && p.name.includes(q)) ||
+        (p.description && p.description.includes(q))
+    );
+},
 
     /** Admin: create product */
     async create(productData) {
@@ -84,7 +83,7 @@ export const productService = {
     async update(id, updates) {
         if (!API_CONFIG.USE_MOCK) {
             const updated = await apiRequest(`/products/${id}`, {
-                method: "PATCH",
+                method: "PUT",
                 body: JSON.stringify(updates)
             });
             const idx = productStore.findIndex(p => p.id === id);

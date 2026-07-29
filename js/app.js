@@ -33,20 +33,33 @@ async function initServices() {
 
 function getFilteredSortedItems() {
     const ui = appState.getUi();
+    
     let items = appState.getProducts().filter(p => {
-        const cat = appState.getCategories().find(c => c.name === ui.currentCategory);
-        return cat && p.categoryId === cat.id && p.available;
+        // فقط محصولات موجود
+        if (p.available === false) return false;
+
+        // اگر دسته‌ای انتخاب شده، فقط محصولات همان دسته
+        if (ui.currentCategory) {
+            const cat = appState.getCategories().find(c => c.name === ui.currentCategory);
+            if (cat) {
+                return p.categoryId === cat.id;
+            }
+        }
+
+        return true;
     });
 
+    // جستجو
     if (ui.searchQuery) {
         const q = ui.searchQuery.trim();
         items = items.filter(i =>
-            i.name.includes(q) ||
-            i.description.includes(q) ||
+            (i.name && i.name.includes(q)) ||
+            (i.description && i.description.includes(q)) ||
             (i.ingredients && i.ingredients.includes(q))
         );
     }
 
+    // مرتب‌سازی
     if (ui.sortMode === "price_asc") items.sort((a, b) => a.price - b.price);
     else if (ui.sortMode === "price_desc") items.sort((a, b) => b.price - a.price);
 
@@ -54,8 +67,16 @@ function getFilteredSortedItems() {
 }
 
 function renderCategoriesSlider() {
+    console.log("=== renderCategoriesSlider called ===");
+    console.log("Categories in appState:", appState.getCategories());
+
     const slider = document.getElementById("categoriesSlider");
     if (!slider) return;
+    console.log("Slider element:", slider);
+    if (!slider) {
+        console.error("المان categoriesSlider پیدا نشد!");
+        return;
+    }
 
     const ui = appState.getUi();
     const categories = appState.getCategories();
@@ -441,9 +462,10 @@ async function bootstrap() {
     initSearchAndSort();
     initNavigation();
     initFooter();
-    renderCategoriesSlider();
     initHeaderScroll();
     initSlideNav();
+    renderCategoriesSlider();
+    renderMainContent();
 
     // نمایش پیام انگیزشی در صفحه اول
     const ui = appState.getUi();

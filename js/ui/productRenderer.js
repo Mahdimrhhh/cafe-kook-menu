@@ -11,7 +11,9 @@ export function formatPrice(price) {
  * @param {number|null} expandedItemId
  */
 export function renderMenuCard(item, expandedItemId) {
-    const imgSrc = item.image || "./img/default.jpg";
+    const imgSrc = item.image 
+        ? (item.image.startsWith("http") ? item.image : `http://localhost:5000${item.image}`)
+        : "./img/default.jpg";
     const isExpanded = expandedItemId === item.id;
 
     return `

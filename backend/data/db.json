@@ -1,0 +1,157 @@
+{
+  "products": [
+    {
+      "id": "78b09814-0e9d-4875-b9df-66ef4550fe78",
+      "name": "اسپرسو",
+      "description": "قهوه غلیظ و خوش‌عطر",
+      "price": 85000,
+      "categoryId": "9fcfc0cd-6f3c-4671-9b10-b3f96a2e23ea",
+      "image": "/uploads/1074ea9b-8c18-4e37-8006-32be09affdd8.jpg",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-07-25T12:56:09.626Z"
+    },
+    {
+      "id": "5f2d2041-fda5-46b7-ab1d-90b03648cf49",
+      "name": "hhehe",
+      "description": "hehtehe",
+      "price": 1433424,
+      "categoryId": "3ba6899b-4111-4d78-881d-360a99d846d7",
+      "image": "/uploads/df616582-2388-4d2a-8eb2-1e593fca5ce7.jpg",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-07-28T16:41:36.302Z"
+    },
+    {
+      "id": "1feb3aa9-28cb-4c05-8663-4e7c8fcfed9a",
+      "name": "etwetyw",
+      "description": "etretet",
+      "price": 124244,
+      "categoryId": "9fcfc0cd-6f3c-4671-9b10-b3f96a2e23ea",
+      "image": "/uploads/70223733-c50c-454b-b8ee-f3cd43b2a279.jpg",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-07-28T16:41:58.002Z"
+    },
+    {
+      "id": "b1737e2b-1bcb-42a2-89af-f5f5a8dbd702",
+      "name": "لاته ایریش",
+      "description": "شیر ایریش همه چی",
+      "price": 23000,
+      "categoryId": "9fcfc0cd-6f3c-4671-9b10-b3f96a2e23ea",
+      "image": "",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-07-28T17:52:01.138Z"
+    },
+    {
+      "id": "8f184685-17aa-474a-873e-d37566ba57df",
+      "name": "شیک توت فرنگی",
+      "description": "ییشسی",
+      "price": 320000,
+      "categoryId": "bcb67d16-964a-45d6-875b-c60b82862d9e",
+      "image": "/uploads/03060b5f-6f65-4903-8003-3bde024a7c79.jpg",
+      "available": true,
+      "featured": true,
+      "createdAt": "2026-07-29T17:03:05.109Z"
+    },
+    {
+      "id": "c254009c-739b-459f-95ba-0ba0577bf226",
+      "name": "تفیتثت",
+      "description": "قتفقت",
+      "price": 45,
+      "categoryId": null,
+      "image": "",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-07-29T17:05:06.927Z"
+    },
+    {
+      "id": "6f5c4fd5-434f-4fe7-8496-994eeff3c560",
+      "name": "قاثاثق",
+      "description": "اقثاثاث",
+      "price": 346336,
+      "categoryId": "888f25e7-9512-4edb-bb5b-fe454e15a577",
+      "image": "/uploads/272d0de1-b8c8-4248-a36e-f9f8f32901c3.jpg",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-07-29T17:05:23.705Z"
+    },
+    {
+      "id": "0c8a8d2e-704f-4952-805b-a103e168901a",
+      "name": "شیک نولا",
+      "description": "یشسیصضی",
+      "price": 360000,
+      "categoryId": "bcb67d16-964a-45d6-875b-c60b82862d9e",
+      "image": "/uploads/d358ed34-4354-46a8-8d1b-f45c2c69da4c.jpg",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-07-29T17:37:30.992Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "9fcfc0cd-6f3c-4671-9b10-b3f96a2e23ea",
+      "name": "قهوه گرم",
+      "icon": "☕",
+      "order": 1
+    },
+    {
+      "id": "7a7ffcc2-f832-47bc-a8b8-a5864b90a719",
+      "name": "قهوه سرد",
+      "icon": "",
+      "order": 0
+    },
+    {
+      "id": "aaf0002d-f523-4aad-8107-0f82bc1d6500",
+      "name": "دمنوش",
+      "icon": "",
+      "order": 0
+    },
+    {
+      "id": "bcb67d16-964a-45d6-875b-c60b82862d9e",
+      "name": "شیک ",
+      "icon": "",
+      "order": 0
+    },
+    {
+      "id": "888f25e7-9512-4edb-bb5b-fe454e15a577",
+      "name": "اسموتی",
+      "icon": "",
+      "order": 0
+    },
+    {
+      "id": "606525b9-46d1-4b57-add5-8c088cd680f8",
+      "name": "نوشیدنی سرد  ",
+      "icon": "",
+      "order": 0
+    },
+    {
+      "id": "3ba6899b-4111-4d78-881d-360a99d846d7",
+      "name": "دسر",
+      "icon": "",
+      "order": 0
+    },
+    {
+      "id": "872afa34-fa5e-46c3-ad3d-1a894f7936fd",
+      "name": "صبحانه",
+      "icon": "",
+      "order": 0
+    },
+    {
+      "id": "586f8bf7-bbac-4ba3-8383-0a0a768edb65",
+      "name": "عصرانه",
+      "icon": "",
+      "order": 0
+    }
+  ],
+  "knowledge": [],
+  "reviews": [],
+  "settings": {
+    "featuredProductId": null
+  },
+  "admin": {
+    "username": "admin",
+    "password": "123456"
+  }
+}

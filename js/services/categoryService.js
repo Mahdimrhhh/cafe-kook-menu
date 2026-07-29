@@ -16,6 +16,7 @@ export const categoryService = {
     async getAll() {
         if (!API_CONFIG.USE_MOCK) {
             const data = await apiRequest("/categories");
+            console.log("Categories loaded from API:", data);
             categoryStore = data;
             syncState();
             return data;
@@ -54,9 +55,9 @@ export const categoryService = {
     /** Admin: update category */
     async update(id, updates) {
         if (!API_CONFIG.USE_MOCK) {
-            const updated = await apiRequest(`/categories/${id}`, {
-                method: "PATCH",
-                body: JSON.stringify(updates)
+           const updated = await apiRequest(`/categories/${id}`, {
+               method: "PUT",
+               body: JSON.stringify(updates)
             });
             const idx = categoryStore.findIndex(c => c.id === id);
             if (idx !== -1) categoryStore[idx] = updated;

@@ -1,15 +1,15 @@
 /**
- * @file Base API client — swap USE_MOCK to false when backend is ready.
+ * @file Base API client — connected to real backend
  */
 
 const API_CONFIG = {
-    USE_MOCK: true,
-    BASE_URL: "/api/v1",
+    USE_MOCK: false,                          // ← تغییر به false
+    BASE_URL: "http://localhost:5000/api",    // ← آدرس بک‌اند
     TIMEOUT: 8000
 };
 
 /**
- * Future REST endpoint wrapper.
+ * REST endpoint wrapper
  * @param {string} endpoint
  * @param {RequestInit} [options]
  * @returns {Promise<any>}
@@ -24,7 +24,10 @@ export async function apiRequest(endpoint, options = {}) {
 
     try {
         const response = await fetch(`${API_CONFIG.BASE_URL}${endpoint}`, {
-            headers: { "Content-Type": "application/json", ...options.headers },
+            headers: { 
+                "Content-Type": "application/json", 
+                ...options.headers 
+            },
             signal: controller.signal,
             ...options
         });

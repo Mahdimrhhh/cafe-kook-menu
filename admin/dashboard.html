@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>پنل ادمین | کافه کوک</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- هدر بالا -->
+  <div class="top-bar">
+    <h1>کافه کوک</h1>
+    <button class="logout-btn" onclick="logout()">خروج</button>
+  </div>
+
+  <!-- محتوای اصلی -->
+  <main class="main-content">
+
+    <!-- بخش محصولات -->
+    <section id="products-section">
+      <div class="page-header">
+        <h2>محصولات</h2>
+        <button class="btn btn-success" onclick="openProductModal()">+ افزودن</button>
+      </div>
+      <div id="productsList">
+        <!-- کارت‌های محصول اینجا میان -->
+      </div>
+    </section>
+
+    <!-- بخش دسته‌بندی‌ها -->
+    <section id="categories-section" style="display: none;">
+      <div class="page-header">
+        <h2>دسته‌بندی‌ها</h2>
+        <button class="btn btn-success" onclick="openCategoryModal()">+ افزودن</button>
+      </div>
+      <div id="categoriesList">
+        <!-- دسته‌ها اینجا میان -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- نوار پایین -->
+  <nav class="bottom-nav">
+    <button class="active" onclick="showSection('products', this)">
+      <span>☕</span>
+      محصولات
+    </button>
+    <button onclick="showSection('categories', this)">
+      <span>📂</span>
+      دسته‌ها
+    </button>
+  </nav>
+
+  <!-- مودال محصول -->
+  <div class="modal" id="productModal">
+    <div class="modal-content">
+      <h2 id="modalTitle">افزودن محصول</h2>
+      
+      <form id="productForm">
+        <input type="hidden" id="productId">
+
+        <div class="form-group">
+          <label>نام محصول</label>
+          <input type="text" id="productName" required>
+        </div>
+
+        <div class="form-group">
+          <label>توضیحات</label>
+          <input type="text" id="productDescription">
+        </div>
+
+        <div class="form-group">
+          <label>قیمت (تومان)</label>
+          <input type="number" id="productPrice" required>
+        </div>
+
+        <div class="form-group">
+          <label>دسته‌بندی</label>
+          <select id="productCategory">
+            <option value="">-- انتخاب دسته --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>عکس محصول</label>
+          <input type="file" id="productImage" accept="image/*">
+          <div id="imagePreview" style="margin-top: 10px;"></div>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="productAvailable" checked> موجود است
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="productFeatured"> پیشنهاد روز
+          </label>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeProductModal()">انصراف</button>
+          <button type="submit" class="btn btn-success">ذخیره</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
