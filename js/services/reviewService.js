@@ -58,16 +58,16 @@ function generateAnonymousName() {
 export const reviewService = {
     async getAll(includeUnapproved = false) {
         if (!API_CONFIG.USE_MOCK) {
-            const data = await apiRequest("/reviews");
+            const data = await apiRequest("/reviews/approved");
             reviewStore = data;
             syncState();
-            return includeUnapproved ? data : data.filter(r => r.approved);
+            return data; // چون از قبل فقط approvedها میان
         }
         loadFromStorage();
         syncState();
         return includeUnapproved
             ? [...reviewStore]
-            : reviewStore.filter(r => r.approved);
+            : reviewStore.filter(r => r.status === 'approved' || r.approved === true);
     },
 
     async getById(id) {
@@ -75,27 +75,39 @@ export const reviewService = {
         return reviews.find(r => r.id === id) || null;
     },
 
-    /** Public: submit review (pending approval in future admin) */
-    async create({ text, rating }) {
+    /** Public: submit review (نیاز به لاگین کاربر) */
+    async create({ name, text, rating }) {
+        if (!API_CONFIG.USE_MOCK) {
+            const token = localStorage.getItem("cafe_user_token");
+
+            if (!token) {
+                throw new Error("برای ثبت نظر باید وارد حساب کاربری خود شوید");
+            }
+
+            const created = await apiRequest("/reviews", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    name: name || "کاربر",
+                    text,
+                    rating: rating || 5
+                })
+            });
+
+            return created;
+        }
+
+        // حالت mock (قدیمی)
         const review = {
             id: nextId++,
-            name: generateAnonymousName(),
+            name: name || generateAnonymousName(),
             text,
             rating: rating || null,
             createdAt: Date.now(),
             approved: true
         };
-
-        if (!API_CONFIG.USE_MOCK) {
-            const created = await apiRequest("/reviews", {
-                method: "POST",
-                body: JSON.stringify({ text, rating })
-            });
-            reviewStore.push(created);
-            syncState();
-            return created;
-        }
-
         reviewStore.push(review);
         saveToStorage();
         syncState();

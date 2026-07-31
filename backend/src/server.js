@@ -10,6 +10,8 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
 const authRoutes = require('./routes/authRoutes');
 const authMiddleware = require('./middleware/auth');
+const userRoutes = require('./routes/userRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 const otherRoutes = require('./routes/otherRoutes');
 
 const app = express();
@@ -19,6 +21,8 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/api/users', userRoutes);
+app.use('/api/reviews', reviewRoutes);
 app.use('/api', otherRoutes);
 
 // مسیرهای عمومی
@@ -27,7 +31,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 
 // مسیر آپلود فقط برای ادمین
-app.use('/api/upload', uploadRoutes);   // موقتاً بدون احراز هویت
+app.use('/api/upload', authMiddleware, uploadRoutes);
 
 app.get('/', (req, res) => {
   res.json({ 

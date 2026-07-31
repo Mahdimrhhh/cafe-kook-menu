@@ -220,6 +220,42 @@ function initBirthdateStep() {
     const skipBtn = document.getElementById("skipBirthBtn");
     const errorEl = document.getElementById("birthError");
 
+    async function completeLogin(birthDate) {
+        finishBtn.disabled = true;
+        finishBtn.innerHTML = '<span>در حال ورود...</span>';
+        errorEl.textContent = "";
+
+        try {
+            const res = await fetch("http://localhost:5000/api/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    phone: phoneNumber,
+                    birthDate: birthDate || "نامشخص"
+                })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.message || "خطا در ورود");
+            }
+
+            // ذخیره توکن و اطلاعات کاربر
+            localStorage.setItem("cafe_user_token", data.token);
+            localStorage.setItem("cafe_user_phone", data.user.phone);
+            localStorage.setItem("cafe_user_birthdate", data.user.birthDate);
+            localStorage.setItem("cafe_user_id", data.user.id);
+
+            window.location.href = "./index.html";
+
+        } catch (err) {
+            errorEl.textContent = err.message;
+            finishBtn.disabled = false;
+            finishBtn.innerHTML = '<span>تکمیل ثبت‌نام</span>';
+        }
+    }
+
     finishBtn.addEventListener("click", () => {
         const day = document.getElementById("birthDay").value;
         const month = document.getElementById("birthMonth").value;
@@ -230,15 +266,12 @@ function initBirthdateStep() {
             return;
         }
 
-        localStorage.setItem("cafe_user_phone", phoneNumber);
-        localStorage.setItem("cafe_user_birthdate", `${year}-${month}-${day}`);
-
-        window.location.href = "./index.html";
+        const birthDate = `${year}-${month}-${day}`;
+        completeLogin(birthDate);
     });
 
     skipBtn.addEventListener("click", () => {
-        localStorage.setItem("cafe_user_phone", phoneNumber);
-        window.location.href = "./index.html";
+        completeLogin("نامشخص");
     });
 }
 

@@ -24,12 +24,13 @@ export async function apiRequest(endpoint, options = {}) {
 
     try {
         const response = await fetch(`${API_CONFIG.BASE_URL}${endpoint}`, {
-            headers: { 
-                "Content-Type": "application/json", 
-                ...options.headers 
+            method: options.method || "GET",
+            headers: {
+                "Content-Type": "application/json",
+                ...(options.headers || {})
             },
-            signal: controller.signal,
-            ...options
+            body: options.body || undefined,
+            signal: controller.signal
         });
 
         if (!response.ok) {

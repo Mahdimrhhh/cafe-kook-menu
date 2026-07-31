@@ -146,12 +146,49 @@
     }
   ],
   "knowledge": [],
-  "reviews": [],
+  "reviews": [
+    {
+      "id": "f68df29b-334d-4525-804c-bebcace0bca1",
+      "userId": "3c991146-c351-48a9-b51f-a2042ba304d5",
+      "phone": "09330837515",
+      "name": "کاربر 7515",
+      "text": "عالی بود",
+      "rating": 2,
+      "status": "approved",
+      "createdAt": "2026-07-31T09:45:59.089Z"
+    },
+    {
+      "id": "9365027f-e6cf-4142-84e2-b680e6553fa2",
+      "userId": "3c991146-c351-48a9-b51f-a2042ba304d5",
+      "phone": "09330837515",
+      "name": "کاربر 7515",
+      "text": "دوست دارم تفضلی",
+      "rating": 4,
+      "status": "approved",
+      "createdAt": "2026-07-31T09:52:43.039Z"
+    }
+  ],
   "settings": {
     "featuredProductId": null
   },
   "admin": {
     "username": "admin",
     "password": "123456"
-  }
+  },
+  "users": [
+    {
+      "id": "818a11c8-88c9-41a2-bc91-ba6a563345bc",
+      "phone": "09121234567",
+      "birthDate": "1375-05-12",
+      "createdAt": "2026-07-31T09:10:02.591Z",
+      "lastLogin": "2026-07-31T09:10:02.592Z"
+    },
+    {
+      "id": "3c991146-c351-48a9-b51f-a2042ba304d5",
+      "phone": "09330837515",
+      "birthDate": "1383-3-13",
+      "createdAt": "2026-07-31T09:29:50.523Z",
+      "lastLogin": "2026-07-31T09:43:02.457Z"
+    }
+  ]
 }

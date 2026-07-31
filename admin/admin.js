@@ -63,13 +63,14 @@ function authHeaders() {
 function showSection(section, btn) {
   document.getElementById('products-section').style.display = section === 'products' ? 'block' : 'none';
   document.getElementById('categories-section').style.display = section === 'categories' ? 'block' : 'none';
+  document.getElementById('reviews-section').style.display = section === 'reviews' ? 'block' : 'none';
 
-  // فعال کردن دکمه پایین
   document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
 
   if (section === 'products') loadProducts();
   if (section === 'categories') loadCategories();
+  if (section === 'reviews') loadReviews();
 }
 
 // -------------------- محصولات (کارت) --------------------
@@ -316,6 +317,95 @@ if (productForm) {
       alert('خطا در ارتباط با سرور');
     }
   });
+}
+
+// -------------------- مدیریت نظرات --------------------
+async function loadReviews() {
+  try {
+    const res = await fetch(`${API_URL}/reviews`, {
+      headers: authHeaders()
+    });
+    const reviews = await res.json();
+    const container = document.getElementById('reviewsList');
+    container.innerHTML = '';
+
+    if (!reviews.length) {
+      container.innerHTML = '<p style="text-align:center;color:#888;padding:40px 0">هیچ نظری وجود ندارد</p>';
+      return;
+    }
+
+    // جدیدترین‌ها اول
+    reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    reviews.forEach(r => {
+      const statusText = {
+        pending: 'در انتظار تایید',
+        approved: 'تایید شده',
+        rejected: 'رد شده'
+      }[r.status] || r.status;
+
+      const statusColor = {
+        pending: '#f39c12',
+        approved: '#27ae60',
+        rejected: '#e74c3c'
+      }[r.status] || '#888';
+
+      container.innerHTML += `
+        <div class="product-card" style="flex-direction:column;align-items:stretch;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <strong>${r.name || 'کاربر'}</strong>
+            <span style="font-size:12px;color:${statusColor};font-weight:600">${statusText}</span>
+          </div>
+          <div style="font-size:13px;color:#555">${r.text}</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#888">
+            <span>${'⭐'.repeat(r.rating || 0)}</span>
+            <span>${r.phone || ''}</span>
+          </div>
+          <div class="actions" style="flex-direction:row;gap:8px;margin-top:6px">
+            ${r.status !== 'approved' ? `<button class="btn-success" onclick="setReviewStatus('${r.id}','approved')">تایید</button>` : ''}
+            ${r.status !== 'rejected' ? `<button class="btn-secondary" onclick="setReviewStatus('${r.id}','rejected')">رد</button>` : ''}
+            <button class="btn-danger" onclick="deleteReview('${r.id}')">حذف</button>
+          </div>
+        </div>
+      `;
+    });
+  } catch (err) {
+    console.error(err);
+    alert('خطا در بارگذاری نظرات');
+  }
+}
+
+async function setReviewStatus(id, status) {
+  try {
+    const res = await fetch(`${API_URL}/reviews/${id}/status`, {
+      method: 'PATCH',
+      headers: authHeaders(),
+      body: JSON.stringify({ status })
+    });
+
+    if (res.ok) {
+      loadReviews();
+    } else {
+      alert('خطا در تغییر وضعیت');
+    }
+  } catch (err) {
+    alert('خطا در ارتباط با سرور');
+  }
+}
+
+async function deleteReview(id) {
+  if (!confirm('این نظر حذف شود؟')) return;
+
+  try {
+    const res = await fetch(`${API_URL}/reviews/${id}`, {
+      method: 'DELETE',
+      headers: authHeaders()
+    });
+    if (res.ok) loadReviews();
+    else alert('خطا در حذف');
+  } catch (err) {
+    alert('خطا در ارتباط با سرور');
+  }
 }
 
 // -------------------- شروع --------------------

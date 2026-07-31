@@ -215,14 +215,38 @@ function bindReviewForm() {
             return;
         }
 
-        await reviewService.create({
-            text,
-            rating: ui.selectedRating || null
-        });
+        // چک کردن لاگین بودن کاربر
+        const token = localStorage.getItem("cafe_user_token");
+        if (!token) {
+            showNotification("برای ثبت نظر ابتدا وارد شوید");
+            setTimeout(() => {
+                window.location.href = "./login.html";
+            }, 1200);
+            return;
+        }
 
-        appState.setSelectedRating(0);
-        await renderMainContent();
-        showNotification("نظرت با ❤️ ثبت شد! ممنونیم");
+        try {
+            const phone = localStorage.getItem("cafe_user_phone") || "";
+            const displayName = phone ? `کاربر ${phone.slice(-4)}` : "کاربر";
+
+            await reviewService.create({
+                name: displayName,
+                text,
+                rating: ui.selectedRating || 5
+            });
+
+            // پاک کردن فرم
+            const textArea = document.getElementById("reviewText");
+            if (textArea) textArea.value = "";
+            appState.setSelectedRating(0);
+            document.querySelectorAll(".rating-star").forEach(s => s.classList.remove("active"));
+
+            showNotification("نظرت ثبت شد و پس از تایید نمایش داده می‌شود ❤️");
+
+        } catch (err) {
+            console.error(err);
+            showNotification(err.message || "خطا در ثبت نظر");
+        }
     });
 }
 

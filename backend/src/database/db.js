@@ -31,6 +31,7 @@ async function initDB() {
       categories: [],
       knowledge: [],
       reviews: [],
+      users: [],
       settings: {
         featuredProductId: null
       },
@@ -45,6 +46,7 @@ async function initDB() {
   db.data.products = db.data.products || [];
   db.data.categories = db.data.categories || [];
   db.data.knowledge = db.data.knowledge || [];
+  db.data.users = db.data.users || [];
   db.data.reviews = db.data.reviews || [];
   db.data.settings = db.data.settings || { featuredProductId: null };
 
