@@ -5,7 +5,7 @@
       "name": "اسپرسو",
       "description": "قهوه غلیظ و خوش‌عطر",
       "price": 85000,
-      "categoryId": "9fcfc0cd-6f3c-4671-9b10-b3f96a2e23ea",
+      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
       "image": "/uploads/1074ea9b-8c18-4e37-8006-32be09affdd8.jpg",
       "available": true,
       "featured": false,
@@ -16,7 +16,7 @@
       "name": "hhehe",
       "description": "hehtehe",
       "price": 1433424,
-      "categoryId": "3ba6899b-4111-4d78-881d-360a99d846d7",
+      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
       "image": "/uploads/df616582-2388-4d2a-8eb2-1e593fca5ce7.jpg",
       "available": true,
       "featured": false,
@@ -38,7 +38,7 @@
       "name": "لاته ایریش",
       "description": "شیر ایریش همه چی",
       "price": 23000,
-      "categoryId": "9fcfc0cd-6f3c-4671-9b10-b3f96a2e23ea",
+      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
       "image": "",
       "available": true,
       "featured": false,
@@ -91,61 +91,116 @@
   ],
   "categories": [
     {
-      "id": "9fcfc0cd-6f3c-4671-9b10-b3f96a2e23ea",
+      "id": "b35865e6-b4f5-4048-a154-696266406349",
       "name": "قهوه گرم",
-      "icon": "☕",
-      "order": 1
+      "icon": "coffee",
+      "order": 0
     },
     {
-      "id": "7a7ffcc2-f832-47bc-a8b8-a5864b90a719",
+      "id": "e0351c9e-de76-4310-b771-ff046d4e793e",
       "name": "قهوه سرد",
-      "icon": "",
+      "icon": "cold-coffee",
       "order": 0
     },
     {
-      "id": "aaf0002d-f523-4aad-8107-0f82bc1d6500",
-      "name": "دمنوش",
-      "icon": "",
+      "id": "76032f25-87e5-4f9c-9fd0-ff8173586977",
+      "name": "قهوه دمی",
+      "icon": "keetel",
       "order": 0
     },
     {
-      "id": "bcb67d16-964a-45d6-875b-c60b82862d9e",
-      "name": "شیک ",
-      "icon": "",
+      "id": "d49aaa8a-15ff-4c81-84aa-3ca0f019ce4c",
+      "name": "چای و دمنوش",
+      "icon": "tea",
       "order": 0
     },
     {
-      "id": "888f25e7-9512-4edb-bb5b-fe454e15a577",
+      "id": "07282312-3292-4d4a-954f-e177eccc6a4e",
+      "name": "نوشیدنی گرم",
+      "icon": "hoot",
+      "order": 0
+    },
+    {
+      "id": "58ccadee-b134-4026-8dc0-80d0f8f04bde",
+      "name": "نوشیدنی سرد",
+      "icon": "cold",
+      "order": 0
+    },
+    {
+      "id": "e40a4ac3-0bb3-4b3c-a087-9579e3694a67",
       "name": "اسموتی",
-      "icon": "",
+      "icon": "smoothie",
       "order": 0
     },
     {
-      "id": "606525b9-46d1-4b57-add5-8c088cd680f8",
-      "name": "نوشیدنی سرد  ",
-      "icon": "",
+      "id": "e7ce4eaf-64b2-4df9-8acd-56406dcf010d",
+      "name": "شیک",
+      "icon": "shake",
       "order": 0
     },
     {
-      "id": "3ba6899b-4111-4d78-881d-360a99d846d7",
-      "name": "دسر",
-      "icon": "",
+      "id": "3222b2df-7ea2-4c4a-877c-49b6d9b049a8",
+      "name": "ابمیوه",
+      "icon": "jusi",
       "order": 0
     },
     {
-      "id": "872afa34-fa5e-46c3-ad3d-1a894f7936fd",
+      "id": "5b13f139-bc6a-4718-9019-bed8efbbce1d",
       "name": "صبحانه",
-      "icon": "",
+      "icon": "breakfast",
       "order": 0
     },
     {
-      "id": "586f8bf7-bbac-4ba3-8383-0a0a768edb65",
+      "id": "0e7cf367-6103-4c89-8f31-f49743fb8aa3",
       "name": "عصرانه",
-      "icon": "",
+      "icon": "evfast",
+      "order": 0
+    },
+    {
+      "id": "e1ba258d-4c39-48cd-813c-65d908d5c2af",
+      "name": "دسر",
+      "icon": "dessert",
       "order": 0
     }
   ],
-  "knowledge": [],
+  "knowledge": [
+    {
+      "id": "k1",
+      "icon": "☕",
+      "title": "راهنمای کوتاه دنیای قهوه",
+      "shortDescription": "از دانه تا فنجان؛ آشنایی با انواع قهوه",
+      "fact": "بیش از ۲۰۰۰ طعم مختلف در قهوه شناسایی شده است",
+      "fullDescription": "قهوه یکی از محبوب‌ترین نوشیدنی‌های جهان است. دانه‌های قهوه از گیاه قهوه به دست می‌آیند و بسته به نوع برشت و روش دم‌آوری، طعم‌های بسیار متفاوتی ایجاد می‌کنند. اسپرسو پایه بسیاری از نوشیدنی‌های کافه‌ای مثل لاته، کاپوچینو و آمریکانو است.",
+      "order": 1
+    },
+    {
+      "id": "k2",
+      "icon": "🌱",
+      "title": "تفاوت عربیکا و روبوستا",
+      "shortDescription": "دو گونه اصلی دانه قهوه و ویژگی‌های هر کدام",
+      "fact": "عربیکا حدود ۶۰ تا ۷۰ درصد تولید جهان را تشکیل می‌دهد",
+      "fullDescription": "عربیکا طعم ملایم‌تر و اسیدیته بالاتری دارد. روبوستا تلخ‌تر، کافئین بیشتر و بدنه قوی‌تری دارد و معمولاً در ترکیب‌های اسپرسو استفاده می‌شود.",
+      "order": 2
+    },
+    {
+      "id": "k3",
+      "icon": "🫖",
+      "title": "روش‌های دم‌آوری قهوه",
+      "shortDescription": "اسپرسو، وی۶۰، فرنچ پرس و Aeropress",
+      "fact": "هر روش دم‌آوری شخصیت خاص خودش را به قهوه می‌دهد",
+      "fullDescription": "اسپرسو با فشار بالا عصاره‌گیری می‌کند، وی۶۰ شفاف و تمیز است، فرنچ پرس بدنه سنگین و روغنی می‌دهد و Aeropress تعادلی بین وضوح و بدنه‌ی کامل ایجاد می‌کند.",
+      "order": 3
+    },
+    {
+      "id": "k4",
+      "icon": "📦",
+      "title": "نگهداری صحیح دانه قهوه",
+      "shortDescription": "چطور تازگی قهوه را حفظ کنیم؟",
+      "fact": "قهوه آسیاب‌شده خیلی سریع عطر خود را از دست می‌دهد",
+      "fullDescription": "دانه‌های قهوه را در ظرف دربسته، دور از نور، رطوبت و گرما نگه دارید. بهتر است دانه کامل بخرید و درست قبل از دم‌آوری آسیاب کنید.",
+      "order": 4
+    }
+  ],
   "reviews": [
     {
       "id": "f68df29b-334d-4525-804c-bebcace0bca1",

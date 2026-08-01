@@ -1,5 +1,19 @@
 const API_URL = 'http://localhost:5000/api';
-
+const CATEGORY_ICONS = [
+  { key: "coffee", label: "قهوه گرم" },
+  { key: "cold-coffee", label: "قهوه سرد" },
+  { key: "tea", label: "چای و دمنوش" },
+  { key: "keetel", label: "قهوه دمی" },
+  { key: "hoot", label: "نوشیدنی گرم" },
+  { key: "cold", label: "نوشیدنی سرد" },
+  { key: "dessert", label: "دسر" },
+  { key: "smoothie", label: "اسموتی" },
+  { key: "shake", label: "شیک" },
+  { key: "jusi", label: "ابمیوه" },
+  { key: "breakfast", label: "صبحانه" },
+  { key: "evfast", label: "عصرانه" },
+  { key: "default", label: "پیش‌فرض" }
+];
 // -------------------- لاگین --------------------
 const loginForm = document.getElementById('loginForm');
 
@@ -135,7 +149,7 @@ async function loadCategories() {
       container.innerHTML += `
         <div class="product-card">
           <div style="width:48px;height:48px;background:#f0f0f0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0">
-            ${c.icon || '📂'}
+            <img src="../icons/${c.icon || 'default'}.svg" alt="" style="width:28px;height:28px;object-fit:contain" onerror="this.src='../icons/default.svg'">
           </div>
           <div class="info">
             <h3>${c.name}</h3>
@@ -162,13 +176,30 @@ async function deleteCategory(id) {
 }
 
 function openCategoryModal() {
-  const name = prompt('نام دسته‌بندی را وارد کنید:');
+  const name = prompt("نام دسته‌بندی را وارد کنید:");
   if (!name) return;
 
+  // ساخت متن گزینه‌ها برای انتخاب آیکون
+  const iconOptions = CATEGORY_ICONS
+    .map((ic, i) => `${i + 1}. ${ic.label} (${ic.key})`)
+    .join("\n");
+
+  const choice = prompt(
+    `شماره آیکون را انتخاب کنید:\n\n${iconOptions}\n\nفقط عدد را وارد کنید:`,
+    "1"
+  );
+
+  const index = parseInt(choice, 10) - 1;
+  const selected = CATEGORY_ICONS[index] || CATEGORY_ICONS[CATEGORY_ICONS.length - 1];
+
   fetch(`${API_URL}/categories`, {
-    method: 'POST',
+    method: "POST",
     headers: authHeaders(),
-    body: JSON.stringify({ name, icon: '☕', order: 0 })
+    body: JSON.stringify({
+      name: name.trim(),
+      icon: selected.key,
+      order: 0
+    })
   }).then(() => loadCategories());
 }
 

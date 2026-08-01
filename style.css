@@ -240,6 +240,14 @@
             transition: transform 0.25s ease;
             box-shadow: 0 14px 36px rgba(0, 0, 0, 0.4);
         }
+        
+        .coffee-cup-btn .btn-icon-svg {
+            width: 28px;
+            height: 28px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 8px; /* چون RTL است، اگر فاصله لازم بود تنظیم کن */
+        }
 
         .coffee-cup-btn .btn-glow {
             position: absolute;
@@ -1213,13 +1221,13 @@
             border-radius: 50px;
             cursor: pointer;
             border: 1px solid var(--border-accent);
-            min-width: 62px;
+            min-width: 65px;
             min-height: 72px;
             flex-shrink: 0;
             scroll-snap-align: center;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
-            gap: 6px;
+            gap: 10px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
             transform-origin: center bottom;
         }
@@ -1228,6 +1236,19 @@
             font-size: 1rem;
             line-height: 1;
             margin-bottom: 2px;
+        }
+
+        .cat-chip .cat-icon-svg {
+            width: 48px;
+            height: 48px;
+            display: block;
+            object-fit: contain;
+        }
+
+        .cat-chip .cat-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .cat-chip:active {
