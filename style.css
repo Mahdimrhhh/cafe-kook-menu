@@ -1770,21 +1770,20 @@
         }
 
         .guide-card-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 14px;
-            background: rgba(198, 139, 84, 0.12);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 42px;
+          height: 42px;
         }
 
-        body.dark .guide-card-icon {
-            background: rgba(198, 139, 84, 0.18);
+        .guide-card-icon .guide-icon-svg {
+          width: 42px;
+          height: 42px;
+          object-fit: contain;
         }
 
+       
         .guide-card h4 {
             color: var(--coffee-deep);
             margin-bottom: 8px;
@@ -1863,6 +1862,30 @@
         }
         /* ؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟؟ */
         
+        .cf-icon-svg {
+        width: 36px;
+        height: 36px;
+        object-fit: contain;
+        display: block;
+        }
+
+        .cf-option-svg {
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
+        display: block;
+        }
+
+        .coffee-finder-icon,
+        .cf-emoji,
+        .cf-option-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent !important;
+        }
+
+
         .coffee-modal{
             position:fixed;
             inset:0;

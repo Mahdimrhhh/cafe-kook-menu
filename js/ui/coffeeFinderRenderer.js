@@ -5,73 +5,73 @@
 const QUESTIONS = [
     {
         id: "mood",
-        emoji: "🌤️",
+        emoji: "mood",
         text: "الان چه حسی داری؟",
         type: "personality",
         options: [
-            { label: "خسته و نیاز به انرژی دارم", value: "tired", icon: "😴" },
-            { label: "آروم و می‌خوام لذت ببرم", value: "calm", icon: "😌" },
-            { label: "استرس دارم", value: "stressed", icon: "😤" },
-            { label: "شاد و سرحالم", value: "happy", icon: "😄" }
+            { label: "خسته و نیاز به انرژی دارم", value: "tired", icon: "tired" },
+            { label: "آروم و می‌خوام لذت ببرم", value: "calm", icon: "calm" },
+            { label: "استرس دارم", value: "stressed", icon: "stressed" },
+            { label: "شاد و سرحالم", value: "happy", icon: "happy" }
         ]
     },
     {
         id: "taste",
-        emoji: "👅",
+        emoji: "taste",
         text: "طعم مورد علاقه‌ات چیه؟",
         type: "technical",
         options: [
-            { label: "تلخ و قوی", value: "bitter", icon: "☕" },
-            { label: "شیرین و ملایم", value: "sweet", icon: "🍯" },
-            { label: "ترش و میوه‌ای", value: "fruity", icon: "🍒" },
-            { label: "خامه‌ای و نرم", value: "creamy", icon: "🥛" }
+            { label: "تلخ و قوی", value: "bitter", icon: "coffee" },
+            { label: "شیرین و ملایم", value: "sweet", icon: "sweet" },
+            { label: "ترش و میوه‌ای", value: "fruity", icon: "fruity" },
+            { label: "خامه‌ای و نرم", value: "creamy", icon: "milk" }
         ]
     },
     {
         id: "temp",
-        emoji: "🌡️",
+        emoji: "temp",
         text: "قهوه‌ات رو چطور دوست داری؟",
         type: "technical",
         options: [
-            { label: "داغ و گرم‌کننده", value: "hot", icon: "♨️" },
-            { label: "سرد و رفرش‌کننده", value: "cold", icon: "🧊" },
-            { label: "فرقی نمی‌کنه", value: "any", icon: "🤷" }
+            { label: "داغ و گرم‌کننده", value: "hot", icon: "hot" },
+            { label: "سرد و رفرش‌کننده", value: "cold", icon: "cold" },
+            { label: "فرقی نمی‌کنه", value: "any", icon: "default" }
         ]
     },
     {
         id: "time",
-        emoji: "🕐",
+        emoji: "time",
         text: "کِی می‌خوای قهوه‌ات رو بخوری؟",
         type: "personality",
         options: [
-            { label: "صبح اول وقت", value: "morning", icon: "🌅" },
-            { label: "وسط روز", value: "noon", icon: "☀️" },
-            { label: "بعد از ناهار", value: "afternoon", icon: "🌤️" },
-            { label: "عصر یا شب", value: "evening", icon: "🌙" }
+            { label: "صبح اول وقت", value: "morning", icon: "morning" },
+            { label: "وسط روز", value: "noon", icon: "noon" },
+            { label: "بعد از ناهار", value: "afternoon", icon: "afternoon" },
+            { label: "عصر یا شب", value: "evening", icon: "evening" }
         ]
     },
     {
         id: "milk",
-        emoji: "🥛",
+        emoji: "milk",
         text: "رابطه‌ات با شیر چطوره؟",
         type: "technical",
         options: [
-            { label: "هرچی بیشتر بهتر", value: "love", icon: "❤️" },
-            { label: "یکم بدم نمیاد", value: "little", icon: "👌" },
-            { label: "ترجیحاً بدون شیر", value: "none", icon: "🚫" },
-            { label: "برام مهم نیست", value: "any", icon: "🤷" }
+            { label: "هرچی بیشتر بهتر", value: "love", icon: "heart" },
+            { label: "یکم بدم نمیاد", value: "little", icon: "ok" },
+            { label: "ترجیحاً بدون شیر", value: "none", icon: "none" },
+            { label: "برام مهم نیست", value: "any", icon: "default" }
         ]
     },
     {
         id: "experience",
-        emoji: "🎓",
+        emoji: "experience",
         text: "چقدر با قهوه آشنایی؟",
         type: "technical",
         options: [
-            { label: "تازه‌کارم، راهنماییم کن", value: "beginner", icon: "🌱" },
-            { label: "معمولی می‌خورم", value: "casual", icon: "😊" },
-            { label: "قهوه‌دون حرفه‌ای‌ام", value: "expert", icon: "🏆" },
-            { label: "دنبال تجربه جدید می‌گردم", value: "adventurous", icon: "🚀" }
+            { label: "تازه‌کارم، راهنماییم کن", value: "beginner", icon: "beginner" },
+            { label: "معمولی می‌خورم", value: "casual", icon: "casual" },
+            { label: "قهوه‌دون حرفه‌ای‌ام", value: "expert", icon: "expert" },
+            { label: "دنبال تجربه جدید می‌گردم", value: "adventurous", icon: "rocket" }
         ]
     }
 ];
@@ -185,7 +185,9 @@ export function renderCoffeeFinder() {
     return `
     <section class="coffee-finder-section" id="coffeeFinderSection">
         <div class="coffee-finder-header">
-            <div class="coffee-finder-icon">☕</div>
+            <div class="coffee-finder-icon">
+            <img src="icons/coffee.svg" alt="" class="cf-icon-svg" onerror="this.src='icons/default.svg'">
+            </div>
             <h2>قهوه‌شناس</h2>
             <p>چند سوال کوتاه، یه پیشنهاد دقیق</p>
         </div>
@@ -205,12 +207,16 @@ function renderQuestion(index, answers) {
             <div class="cf-progress-bar" style="width: ${progress}%"></div>
         </div>
         <div class="cf-progress-text">${index + 1} از ${QUESTIONS.length}</div>
-        <div class="cf-emoji">${q.emoji}</div>
+       <div class="cf-emoji">
+        <img src="icons/${q.emoji || 'default'}.svg" alt="" class="cf-icon-svg" onerror="this.src='icons/default.svg'">
+       </div>
         <h3 class="cf-question-text">${q.text}</h3>
         <div class="cf-options">
             ${q.options.map(opt => `
                 <button class="cf-option" data-value="${opt.value}" data-question="${q.id}">
-                    <span class="cf-option-icon">${opt.icon}</span>
+                    <span class="cf-option-icon">
+                    <img src="icons/${opt.icon || 'default'}.svg" alt="" class="cf-option-svg" onerror="this.src='icons/default.svg'">
+                    </span>
                     <span class="cf-option-label">${opt.label}</span>
                 </button>
             `).join("")}
@@ -224,7 +230,9 @@ function renderResult(suggestions, answers) {
     return `
     <div class="cf-result">
         <div class="cf-result-header">
-            <div class="cf-emoji">🎯</div>
+            <div class="cf-emoji">
+            <img src="icons/target.svg" alt="" class="cf-icon-svg" onerror="this.src='icons/default.svg'">
+            </div>
             <h3>${message}</h3>
         </div>
         <div class="cf-result-cards">

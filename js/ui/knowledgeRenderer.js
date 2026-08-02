@@ -28,7 +28,14 @@ export function scrollSliderToCard(slider, card, smooth = true) {
 export function renderCoffeeKnowledge(articles) {
     const cards = articles.map(topic => `
         <div class="guide-card" data-article-id="${topic.id}">
-            <div class="guide-card-icon">${topic.icon}</div>
+            <div class="guide-card-icon">
+              <img
+                src="icons/${topic.icon || 'default'}.svg"
+                alt=""
+                class="guide-icon-svg"
+                onerror="this.src='icons/default.svg'"
+              > 
+            </div>
             <h4>${topic.title}</h4>
             <p class="guide-short">${topic.shortDescription}</p>
             <div class="guide-fact">
