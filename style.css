@@ -30,6 +30,16 @@
             --glass: rgba(0, 0, 0, 0.35);
             --glass-border: rgba(255, 220, 180, 0.15);
         }
+        @font-face {
+          font-family: "Samim";
+          src: url("/fonts/other/pixelboy-BNarm.woff") format("woff");
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
+        }
+        
+
+        
 
         body.dark {
             --bg-primary: #644f37;
@@ -46,10 +56,10 @@
             --border-accent: rgba(198, 139, 84, 0.25);
         }
         body {
-            font-family: 'Vazirmatn', 'Tahoma', sans-serif;
+            font-family: "Samim", 'Tahoma', sans-serif;
             background: var(--cream);
             color: var(--text-primary);
-            font-size: 14px;
+            font-size: 30px;
             overflow-x: hidden;
             transition: background 0.3s, color 0.2s;
         }
@@ -357,7 +367,7 @@
         .hero-header {
             position: sticky;
             top: 0;
-            height: clamp(260px, 38vh, 340px);
+            height: clamp(370px, 38vh, 340px);
             overflow: hidden;
             margin-bottom: -36px;
             z-index: 1;
@@ -504,16 +514,16 @@
 
         .hero-header h1 {
             color: #fff8f0;
-            font-size: clamp(1.8rem, 7vw, 2.4rem);
-            font-weight: 800;
-            line-height: 1.15;
+            font-size: clamp(2.5rem, 7vw, 2.4rem);
+            font-weight: 100;
+            line-height: 1.50;
             margin-bottom: 8px;
             text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
         }
 
         .hero-header p {
             color: rgba(240, 213, 178, 0.88);
-            font-size: 0.88rem;
+            font-size: 0.98rem;
             line-height: 1.6;
             font-weight: 300;
             max-width: 280px;
@@ -1300,9 +1310,9 @@
             position: fixed;
             bottom: 24px;
             left: 24px;
-            width: 68px;
-            height: 68px;
-            background: linear-gradient(135deg, #b87a44, #d4956a);
+            width: 61px;
+            height: 61px;
+            background: linear-gradient(135deg, #602f05, #5f2a07);
             border: none;
             border-radius: 50%;
             color: white;
@@ -1317,7 +1327,7 @@
         }
 
         .notebook-btn:hover {
-            transform: scale(1.15) rotate(12deg);
+            transform: scale(1.15) rotate(360deg);
             box-shadow: 0 15px 35px rgba(184, 122, 68, 0.6);
         }
 
@@ -1390,7 +1400,7 @@
         }
 
         .checkout-btn {
-            background: linear-gradient(135deg, #b87a44, #d4956a);
+            background: linear-gradient(135deg, #472302, #51270b);
             color: white;
             border: none;
             padding: 14px 32px;
@@ -2307,7 +2317,7 @@
         .footer {
             position: relative;
             margin-top: 48px;
-            background: linear-gradient(175deg, var(--bg-elevated) 0%,var(--bg-elevated-active) 40%, var(--bg-card) 100%);
+            background: linear-gradient(102deg, #852121 0%, #412000 40%, #512f0c 100%);
             color:var(--cream-dark);
             overflow: hidden;
             border-radius: 32px 32px 0 0;
@@ -2316,7 +2326,7 @@
         body.dark .footer{
             position: relative;
             margin-top: 48px;
-            background: linear-gradient(356deg, var(--foter) 0%,var(--bg-elevated) 40%, var(--bg-elevated-active) 100%);
+            background: linear-gradient(102deg, #852121 0%, #412000 40%, #512f0c 100%);
             color:var(--cream-dark);
             overflow: hidden;
             border-radius: 32px 32px 0 0;
@@ -2540,7 +2550,7 @@
         }
 
         body.dark .footer {
-            background: linear-gradient(175deg, #121010 0%, #1a1510 40%, #0f0d0b 100%);
+            background: linear-gradient(102deg, #684321 0%, #412000 40%, #6d4722 100%);
         }
         
         body.dark .footer-col-text {

@@ -66,17 +66,16 @@ export function renderFooter() {
                             شبکه‌های اجتماعی
                         </h4>
                         <div class="footer-social">
-                            <a href="#" class="footer-social-link" aria-label="اینستاگرام">
+                            <a href="https://instagram.com/cafe__kook?igsh=MzRIODBiNWFIZA==" class="footer-social-link" aria-label="اینستاگرام">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="#" class="footer-social-link" aria-label="تلگرام">
+                            <a href="https://t.me/@Ehsan_kook" class="footer-social-link" aria-label="تلگرام">
                                 <i class="fab fa-telegram"></i>
                             </a>
                             <a href="#" class="footer-social-link" aria-label="واتساپ">
                                 <i class="fab fa-whatsapp"></i>
                             </a>
                         </div>
-                        <p class="footer-social-note">به زودی — لینک‌های رسمی</p>
                     </div>
                 </div>
 
