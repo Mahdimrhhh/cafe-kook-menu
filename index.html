@@ -116,8 +116,8 @@
         <footer class="footer"></footer>
         
         <!-- دکمه ثابت دفتر یادداشت - فقط در صفحه اصلی -->
-        <button class="notebook-btn" id="notebookBtn" style="display: none;">
-            <i class="fas fa-note-sticky"></i>
+        <button class="notebook-btn" id="notebookBtn" style="display: none;" aria-label="سفارشات من">
+            <img src="icons/notebook.svg" alt="" class="notebook-btn-icon" onerror="this.src='icons/default.svg'">
             <span class="notebook-count" id="notebookCount">0</span>
         </button>
 
@@ -146,61 +146,91 @@
         </div>
     </div>
     <nav class="slide-nav" id="slideNav">
-        <div class="slide-nav-backdrop" id="slideNavBackdrop"></div>
-        <div class="slide-nav-panel">
-            <div class="slide-nav-header">
-                <span class="slide-nav-logo">☕ کافه کوک</span>
-                <button class="slide-nav-close" id="slideNavClose">✕</button>
-            </div>
-            <ul class="slide-nav-links">
-                <li><a href="#" class="slide-nav-link" data-target="menuGrid">
-                    <span class="slide-nav-icon">🍽️</span>
+    <div class="slide-nav-backdrop" id="slideNavBackdrop"></div>
+    <div class="slide-nav-panel">
+        <div class="slide-nav-header">
+            <span class="slide-nav-logo">
+                <img src="icons/coffee.svg" alt="" class="slide-nav-logo-icon">
+                کافه کوک
+            </span>
+            <button class="slide-nav-close" id="slideNavClose" aria-label="بستن">
+                <img src="icons/close.svg" alt="" class="slide-nav-close-icon" onerror="this.style.display='none'; this.parentNode.textContent='✕';">
+            </button>
+        </div>
+
+        <ul class="slide-nav-links">
+            <li>
+                <a href="#" class="slide-nav-link" data-target="menuGrid">
+                    <span class="slide-nav-icon">
+                        <img src="icons/menu-food.svg" alt="" class="slide-nav-icon-svg" onerror="this.src='icons/default.svg'">
+                    </span>
                     <span>منوی کافه</span>
                     <i class="fas fa-chevron-left slide-nav-arrow"></i>
-                </a></li>
-                <li><a href="#" class="slide-nav-link" data-target="coffeeKnowledge">
-                    <span class="slide-nav-icon">📖</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="slide-nav-link" data-target="coffeeKnowledge">
+                    <span class="slide-nav-icon">
+                        <img src="icons/book.svg" alt="" class="slide-nav-icon-svg" onerror="this.src='icons/default.svg'">
+                    </span>
                     <span>دانش قهوه</span>
                     <i class="fas fa-chevron-left slide-nav-arrow"></i>
-                </a></li>
-                <li><a href="#" class="slide-nav-link" data-target="coffeeFinderSection">
-                    <span class="slide-nav-icon">🎯</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="slide-nav-link" data-target="coffeeFinderSection">
+                    <span class="slide-nav-icon">
+                        <img src="icons/target.svg" alt="" class="slide-nav-icon-svg" onerror="this.src='icons/default.svg'">
+                    </span>
                     <span>قهوه‌شناس</span>
                     <i class="fas fa-chevron-left slide-nav-arrow"></i>
-                </a></li>
-                <li><a href="#" class="slide-nav-link" data-target="reviewSection">
-                    <span class="slide-nav-icon">💬</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="slide-nav-link" data-target="reviewSection">
+                    <span class="slide-nav-icon">
+                        <img src="icons/chat.svg" alt="" class="slide-nav-icon-svg" onerror="this.src='icons/default.svg'">
+                    </span>
                     <span>نظرات</span>
                     <i class="fas fa-chevron-left slide-nav-arrow"></i>
-                </a></li>
-                <li><a href="#" class="slide-nav-link" data-target="siteFooter">
-                    <span class="slide-nav-icon">🏠</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="slide-nav-link" data-target="siteFooter">
+                    <span class="slide-nav-icon">
+                        <img src="icons/home.svg" alt="" class="slide-nav-icon-svg" onerror="this.src='icons/default.svg'">
+                    </span>
                     <span>درباره ما</span>
                     <i class="fas fa-chevron-left slide-nav-arrow"></i>
-                </a></li>
-            </ul>
-            <div style="flex: 1;"></div>
-            <div class="slide-nav-theme">
-                <div class="slide-nav-theme-label">
-                    <i class="fas fa-sun"></i>
-                    <span>حالت تاریک</span>
-                </div>
-                <label class="theme-toggle-switch">
-                    <input type="checkbox" id="slideNavThemeToggle">
-                    <span class="theme-toggle-slider"></span>
-                </label>
+                </a>
+            </li>
+        </ul>
+
+        <div style="flex: 1;"></div>
+
+        <div class="slide-nav-theme">
+            <div class="slide-nav-theme-label">
+                <i class="fas fa-sun"></i>
+                <span>حالت تاریک</span>
             </div>
-            <a href="./login.html" class="slide-nav-login-link">
-                <i class="fas fa-user"></i>
-                <span>ورود / ثبت‌نام</span>
-            </a>
-            <div class="slide-nav-social">
-                <a href="https://instagram.com/cafe__kook?igsh=MzRIODBiNWFIZA=="><i class="fab fa-instagram"></i></a>
-                <a href="https://t.me/@Ehsan_kook"><i class="fab fa-telegram"></i></a>
-                <a href="#"><i class="fas fa-map-marker-alt"></i></a>
-            </div>
+            <label class="theme-toggle-switch">
+                <input type="checkbox" id="slideNavThemeToggle">
+                <span class="theme-toggle-slider"></span>
+            </label>
         </div>
-    </nav>
+
+        <a href="./login.html" class="slide-nav-login-link">
+            <i class="fas fa-user"></i>
+            <span>ورود / ثبت‌نام</span>
+        </a>
+
+        <div class="slide-nav-social">
+            <a href="https://instagram.com/cafe__kook?igsh=MzRIODBiNWFIZA=="><i class="fab fa-instagram"></i></a>
+            <a href="https://t.me/@Ehsan_kook"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fas fa-map-marker-alt"></i></a>
+        </div>
+    </div>
+</nav>
 
 
     <script type="module" src="./js/app.js"></script>

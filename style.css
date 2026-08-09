@@ -625,7 +625,7 @@
             right: 0;
             width: min(300px, 85vw);
             height: 100%;
-            background: #1e110a;
+            background: var(--bg-elevated);
             border-left: 1px solid rgba(198,139,84,0.15);
             transform: translateX(100%);
             transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
@@ -635,6 +635,39 @@
         }
         .slide-nav.open .slide-nav-panel {
             transform: translateX(0);
+        }
+        .slide-nav-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        flex-shrink: 0;
+        }
+
+        .slide-nav-icon-svg {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+        display: block;
+        }
+
+        .slide-nav-logo {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        }
+
+        .slide-nav-logo-icon {
+        width: 22px;
+        height: 22px;
+        object-fit: contain;
+        }
+
+        .slide-nav-close-icon {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
         }
 
         /* هدر منو */
@@ -675,7 +708,7 @@
             
             display: flex;
             flex-direction: column;
-            background: #2a1a0e;
+            background: var(--foter);
             margin: 0 16px;
             border-radius: 20px;
             gap: 0;
@@ -1310,8 +1343,8 @@
             position: fixed;
             bottom: 24px;
             left: 24px;
-            width: 61px;
-            height: 61px;
+            width: 65px;
+            height: 65px;
             background: linear-gradient(135deg, #602f05, #5f2a07);
             border: none;
             border-radius: 50%;
@@ -1324,6 +1357,14 @@
             z-index: 1000;
             cursor: pointer;
             transition: all 0.3s ease;
+        }
+        
+
+        .notebook-btn-icon {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        display: block;
         }
 
         .notebook-btn:hover {
