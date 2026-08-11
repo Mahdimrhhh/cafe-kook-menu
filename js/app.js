@@ -351,6 +351,43 @@ function initSearchAndSort() {
         }
     });
 }
+function initHeaderButtons() {
+    const menuBtn = document.getElementById("menuBtn");
+    const homeBtn = document.getElementById("homeBtn");
+    const slideNav = document.getElementById("slideNav");
+    const slideNavClose = document.getElementById("slideNavClose");
+    const slideNavBackdrop = document.getElementById("slideNavBackdrop");
+
+    if (menuBtn && slideNav) {
+        menuBtn.onclick = () => {
+            slideNav.classList.add("open"); // اگر کلاس قبلی‌ات active است همان را بگذار
+            document.body.classList.add("nav-open");
+        };
+    }
+
+    if (slideNavClose) {
+        slideNavClose.onclick = () => {
+            slideNav.classList.remove("open");
+            document.body.classList.remove("nav-open");
+        };
+    }
+
+    if (slideNavBackdrop) {
+        slideNavBackdrop.onclick = () => {
+            slideNav.classList.remove("open");
+            document.body.classList.remove("nav-open");
+        };
+    }
+
+    if (homeBtn) {
+        homeBtn.onclick = () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            // اگر می‌خواهی به ابتدای منو برگردد:
+            const menu = document.getElementById("menuGrid") || document.querySelector(".menu-grid");
+            if (menu) menu.scrollIntoView({ behavior: "smooth", block: "start" });
+        };
+    }
+}
 
 function initHeaderScroll() {
     const header = document.querySelector(".hero-header");
@@ -485,6 +522,7 @@ async function bootstrap() {
     await initServices();
     initSearchAndSort();
     initNavigation();
+    initHeaderButtons();
     initFooter();
     initHeaderScroll();
     initSlideNav();

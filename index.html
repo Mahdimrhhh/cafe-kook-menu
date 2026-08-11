@@ -65,33 +65,18 @@
 
     <!-- اپ اصلی -->
     <div id="mainApp" class="main-app">
-        <header class="hero-header">
-            <div class="hero-header-image" aria-hidden="true"></div>
-            <div class="hero-overlay">
-                <div class="hero-top">
-                <!-- همبرگر + جستجو چسبیده به هم -->
-                <div class="header-left-group">
-                    <button class="nav-menu-btn" id="navMenuBtn" aria-label="منو">
-                        <span class="nav-menu-bar"></span>
-                        <span class="nav-menu-bar"></span>
-                        <span class="nav-menu-bar"></span>
-                    </button>
+        <header class="app-header">
+            <button class="header-btn" id="homeBtn" aria-label="خانه">
+                <img src="icons/home (1).svg" alt="" class="header-icon" onerror="this.src='icons/default.svg'">
+            </button>
 
-                    <button class="search-icon-btn" id="searchIconBtn" aria-label="جستجو">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
+            <div class="header-logo">
+                <span class="logo-text">کافه کوک</span>
+            </div>
 
-                <a href="#" class="back-btn" id="backHomeBtn">
-                    <i class="fas fa-home"></i>
-                </a>
-            </div>
-                <div class="hero-text">
-                    <h1>کافه کوک</h1>
-                    <p>تجربه‌ای متفاوت از قهوه، دسر و نوشیدنی‌های خاص</p>
-                </div>
-            </div>
-            <div class="hero-fade-bottom" aria-hidden="true"></div>
+            <button class="header-btn" id="menuBtn" aria-label="منو">
+                <img src="icons/menu.svg" alt="" class="header-icon" onerror="this.src='icons/default.svg'">
+            </button>
         </header>
 
         <section class="menu-controls">
@@ -106,9 +91,13 @@
             </div>
 
 
-            <div class="categories-wrapper">
-                <div class="categories-slider" id="categoriesSlider"></div>
-            </div>
+            <div class="category-row">
+            <div class="categories-slider" id="categoriesSlider"></div>
+
+            <button class="cat-search-btn" id="searchIconBtn" aria-label="جستجو">
+                <img src="icons/search.svg" alt="" class="header-icon" onerror="this.src='icons/default.svg'">
+            </button>
+        </div>
         </section>
 
         <div id="dynamicContent"></div>

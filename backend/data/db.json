@@ -1,81 +1,48 @@
 {
   "products": [
     {
-      "id": "78b09814-0e9d-4875-b9df-66ef4550fe78",
-      "name": "اسپرسو",
-      "description": "قهوه غلیظ و خوش‌عطر",
-      "price": 85000,
-      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
-      "image": "/uploads/1074ea9b-8c18-4e37-8006-32be09affdd8.jpg",
-      "available": true,
-      "featured": false,
-      "createdAt": "2026-07-25T12:56:09.626Z"
-    },
-    {
-      "id": "1feb3aa9-28cb-4c05-8663-4e7c8fcfed9a",
-      "name": "etwetyw",
-      "description": "etretet",
-      "price": 124244,
-      "categoryId": "9fcfc0cd-6f3c-4671-9b10-b3f96a2e23ea",
-      "image": "/uploads/70223733-c50c-454b-b8ee-f3cd43b2a279.jpg",
-      "available": true,
-      "featured": false,
-      "createdAt": "2026-07-28T16:41:58.002Z"
-    },
-    {
-      "id": "b1737e2b-1bcb-42a2-89af-f5f5a8dbd702",
-      "name": "لاته ایریش",
-      "description": "شیر ایریش همه چی",
-      "price": 23000,
-      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
-      "image": "",
-      "available": true,
-      "featured": false,
-      "createdAt": "2026-07-28T17:52:01.138Z"
-    },
-    {
       "id": "8f184685-17aa-474a-873e-d37566ba57df",
       "name": "شیک توت فرنگی",
       "description": "ییشسی",
       "price": 320000,
-      "categoryId": "bcb67d16-964a-45d6-875b-c60b82862d9e",
+      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
       "image": "/uploads/03060b5f-6f65-4903-8003-3bde024a7c79.jpg",
       "available": true,
       "featured": true,
       "createdAt": "2026-07-29T17:03:05.109Z"
     },
     {
-      "id": "c254009c-739b-459f-95ba-0ba0577bf226",
-      "name": "تفیتثت",
-      "description": "قتفقت",
-      "price": 45,
-      "categoryId": null,
-      "image": "",
-      "available": true,
-      "featured": false,
-      "createdAt": "2026-07-29T17:05:06.927Z"
-    },
-    {
-      "id": "6f5c4fd5-434f-4fe7-8496-994eeff3c560",
-      "name": "قاثاثق",
-      "description": "اقثاثاث",
-      "price": 346336,
-      "categoryId": "888f25e7-9512-4edb-bb5b-fe454e15a577",
-      "image": "/uploads/272d0de1-b8c8-4248-a36e-f9f8f32901c3.jpg",
-      "available": true,
-      "featured": false,
-      "createdAt": "2026-07-29T17:05:23.705Z"
-    },
-    {
       "id": "0c8a8d2e-704f-4952-805b-a103e168901a",
       "name": "شیک نولا",
       "description": "یشسیصضی",
       "price": 360000,
-      "categoryId": "bcb67d16-964a-45d6-875b-c60b82862d9e",
+      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
       "image": "/uploads/d358ed34-4354-46a8-8d1b-f45c2c69da4c.jpg",
       "available": true,
       "featured": false,
       "createdAt": "2026-07-29T17:37:30.992Z"
+    },
+    {
+      "id": "86ff7f35-6b14-40e5-8707-d1877582803f",
+      "name": "wegwg",
+      "description": "wgewgw",
+      "price": 4786786,
+      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
+      "image": "/uploads/27e1f960-96c9-437f-bbd5-2c313a0fd133.jpg",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-08-11T16:42:59.907Z"
+    },
+    {
+      "id": "1212e9ca-06e9-4c67-be9b-1ee74ddcc1dc",
+      "name": "y5yry",
+      "description": "yr5y",
+      "price": 486678,
+      "categoryId": "b35865e6-b4f5-4048-a154-696266406349",
+      "image": "/uploads/94e3a708-4604-46f0-b35b-f5f6d4437a64.jpg",
+      "available": true,
+      "featured": false,
+      "createdAt": "2026-08-11T16:43:18.643Z"
     }
   ],
   "categories": [
