@@ -360,7 +360,7 @@ function initHeaderButtons() {
 
     if (menuBtn && slideNav) {
         menuBtn.onclick = () => {
-            slideNav.classList.add("open"); // اگر کلاس قبلی‌ات active است همان را بگذار
+            slideNav.classList.add("open");
             document.body.classList.add("nav-open");
         };
     }
@@ -381,20 +381,20 @@ function initHeaderButtons() {
 
     if (homeBtn) {
         homeBtn.onclick = () => {
-            window.scrollTo({ top: 0, behavior: "smooth" });
-            // اگر می‌خواهی به ابتدای منو برگردد:
-            const menu = document.getElementById("menuGrid") || document.querySelector(".menu-grid");
-            if (menu) menu.scrollIntoView({ behavior: "smooth", block: "start" });
+            showHomeView();
         };
     }
 }
 
 function initHeaderScroll() {
-    const header = document.querySelector(".hero-header");
+    const header = document.querySelector(".hero-header") || document.querySelector(".app-header");
+    if (!header) return;
 
     window.addEventListener("scroll", () => {
         const scrollY = window.scrollY;
-        const headerHeight = header.offsetHeight;
+        const headerHeight = header.offsetHeight || 1;
+
+        if (!document.querySelector(".hero-header")) return;
 
         const opacity = Math.max(0, 1 - scrollY / (headerHeight * 0.6));
         header.style.opacity = opacity;
@@ -402,39 +402,69 @@ function initHeaderScroll() {
 }
 
 function showMenuView() {
-    document.body.classList.remove("home-view");
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("mainApp").classList.add("active");
+    const homePage = document.getElementById("homePage");
+    const mainApp = document.getElementById("mainApp");
 
-    // رندر کردن محتویات صفحه اصلی
+    document.body.classList.remove("home-view");
+    document.body.classList.add("menu-view");
+
+    if (homePage) homePage.style.display = "none";
+    if (mainApp) {
+        mainApp.style.display = "";
+        mainApp.classList.add("active");
+    }
+
     renderCategoriesSlider();
     renderMainContent();
 
-    // نمایش پاپ‌آپ پیشنهاد روز بعد از ورود به منو
+    if (typeof initHeaderButtons === "function") initHeaderButtons();
+
+    const notebookBtn = document.getElementById("notebookBtn");
+    if (notebookBtn) notebookBtn.style.display = "flex";
+
     setTimeout(() => {
         const products = appState.getProducts();
         if (!products || products.length === 0) return;
 
         const featured = products.filter(p => p.featured && p.available);
         const product = featured.length ? featured[0] : products[0];
-        
-        showFeaturedPopup(product);
+        if (typeof showFeaturedPopup === "function") showFeaturedPopup(product);
     }, 1800);
-        const notebookBtn = document.getElementById("notebookBtn");
-        if (notebookBtn) notebookBtn.style.display = "flex";
 }
 
 function showHomeView() {
-    document.body.classList.add("home-view");
-    document.getElementById("homePage").style.display = "flex";
-    document.getElementById("mainApp").classList.remove("active");
-    stopGuideSlider();
-
-    // مخفی کردن دکمه دفتر در صفحه لندینگ
+    const homePage = document.getElementById("homePage");
+    const mainApp = document.getElementById("mainApp");
+    const slideNav = document.getElementById("slideNav");
     const notebookBtn = document.getElementById("notebookBtn");
-    if (notebookBtn) notebookBtn.style.display = "none";
-}
 
+    if (slideNav) {
+        slideNav.classList.remove("open", "active");
+    }
+    document.body.classList.remove("nav-open");
+
+    document.body.classList.add("home-view");
+    document.body.classList.remove("menu-view");
+
+    if (homePage) {
+        homePage.style.display = "flex";
+    }
+
+    if (mainApp) {
+        mainApp.classList.remove("active");
+        mainApp.style.display = "none";
+    }
+
+    if (typeof stopGuideSlider === "function") {
+        stopGuideSlider();
+    }
+
+    if (notebookBtn) {
+        notebookBtn.style.display = "none";
+    }
+
+    window.scrollTo(0, 0);
+}
 function initNavigation() {
     document.getElementById("enterCafeBtn")?.addEventListener("click", () => {
         showMenuView();
