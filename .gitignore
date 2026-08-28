@@ -1,0 +1,21 @@
+# وابستگی‌ها
+node_modules/
+backend/node_modules/
+
+# فایل‌های محیطی و محرمانه
+.env
+backend/.env
+
+# دیتابیس و آپلودها (اختیاری برای تست)
+# اگر می‌خواهی داده‌های فعلی‌ات روی هاست هم باشند، دو خط پایین را کامنت کن
+backend/data/
+backend/uploads/
+
+# سیستم
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+
+# تست
+backend/test-upload.html
