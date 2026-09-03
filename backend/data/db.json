@@ -174,7 +174,7 @@
   },
   "admin": {
     "username": "admin",
-    "password": "123456"
+    "passwordHash": "$2b$10$TeMLfWrw1lRD8qQzcsW6/.ZchlIZJY.Aen824msbLVZoVXAbRVnZ2"
   },
   "users": [
     {
@@ -190,6 +190,16 @@
       "birthDate": "1383-3-13",
       "createdAt": "2026-07-31T09:29:50.523Z",
       "lastLogin": "2026-07-31T09:43:02.457Z"
+    }
+  ],
+  "otpCodes": [
+    {
+      "id": "582e736a-9929-49ab-97cf-f40b7655c4ff",
+      "phone": "09123456789",
+      "code": "76240",
+      "createdAt": 1788452790325,
+      "expiresAt": 1788452850325,
+      "used": false
     }
   ]
 }

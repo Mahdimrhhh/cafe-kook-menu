@@ -1,8 +1,9 @@
 /**
  * @file Login flow — phone, OTP, birthdate.
- * NOTE: Backend not connected yet. OTP is simulated (always "12345").
- * Replace simulateSendOtp/simulateVerifyOtp with real API calls later.
+ * Connected to backend /api/users/request-otp and /api/users/verify-otp.
  */
+
+const API_BASE = "http://localhost:5000/api/users";
 
 const PERSIAN_MONTHS = [
     "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
@@ -68,22 +69,26 @@ function startTimer(seconds) {
     }, 1000);
 }
 
-// شبیه‌سازی ارسال کد — بک‌اند بعداً اینجا وصل می‌شود
-function simulateSendOtp(phone) {
-    return new Promise(resolve => {
-        console.log(`[شبیه‌سازی] کد تایید برای ${phone} ارسال شد: 12345`);
-        setTimeout(resolve, 500);
+async function sendOtp(phone) {
+    const res = await fetch(`${API_BASE}/request-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone })
     });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "خطا در ارسال کد");
+    return data;
 }
 
-// شبیه‌سازی تایید کد — بک‌اند بعداً اینجا وصل می‌شود
-function simulateVerifyOtp(phone, code) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            if (code === "12345") resolve({ isNewUser: true });
-            else reject(new Error("کد وارد شده اشتباه است"));
-        }, 500);
+async function verifyOtpApi(phone, code) {
+    const res = await fetch(`${API_BASE}/verify-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phone, code })
     });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || "کد اشتباه است");
+    return data;
 }
 
 function populateDateSelects() {
@@ -105,7 +110,7 @@ function populateDateSelects() {
         monthEl.appendChild(opt);
     });
 
-    const currentJalaliYear = 1404;
+    const currentJalaliYear = 1405;
     for (let y = currentJalaliYear - 14; y >= currentJalaliYear - 90; y--) {
         const opt = document.createElement("option");
         opt.value = y;
@@ -137,7 +142,14 @@ function initPhoneStep() {
         sendBtn.innerHTML = '<span>در حال ارسال...</span>';
 
         phoneNumber = phone;
-        await simulateSendOtp(phone);
+        try {
+            await sendOtp(phone);
+        } catch (err) {
+            errorEl.textContent = err.message;
+            sendBtn.disabled = false;
+            sendBtn.innerHTML = '<span>ارسال کد تایید</span><i class="fas fa-arrow-left"></i>';
+            return;
+        }
 
         sendBtn.disabled = false;
         sendBtn.innerHTML = '<span>ارسال کد تایید</span><i class="fas fa-arrow-left"></i>';
@@ -184,11 +196,19 @@ function initOtpStep() {
         verifyBtn.innerHTML = '<span>در حال بررسی...</span>';
 
         try {
-            const result = await simulateVerifyOtp(phoneNumber, code);
+            const result = await verifyOtpApi(phoneNumber, code);
             verifyBtn.disabled = false;
             verifyBtn.innerHTML = '<span>تایید کد</span><i class="fas fa-arrow-left"></i>';
 
-            if (result.isNewUser) {
+            if (result.token) {
+                localStorage.setItem("cafe_user_token", result.token);
+                if (result.user) {
+                    localStorage.setItem("cafe_user_phone", result.user.phone);
+                    localStorage.setItem("cafe_user_birthdate", result.user.birthDate || "نامشخص");
+                    localStorage.setItem("cafe_user_id", result.user.id);
+                }
+                window.location.href = "./index.html";
+            } else if (result.isNewUser) {
                 goToStep(3);
             } else {
                 window.location.href = "./index.html";
@@ -203,7 +223,12 @@ function initOtpStep() {
     });
 
     resendBtn.addEventListener("click", async () => {
-        await simulateSendOtp(phoneNumber);
+        try {
+            await sendOtp(phoneNumber);
+        } catch (err) {
+            errorEl.textContent = err.message;
+            return;
+        }
         startTimer(60);
         boxes.forEach(b => b.value = "");
         boxes[0].focus();

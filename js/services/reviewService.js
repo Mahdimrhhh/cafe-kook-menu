@@ -117,7 +117,10 @@ export const reviewService = {
     /** Admin: approve review */
     async approve(id) {
         if (!API_CONFIG.USE_MOCK) {
-            return apiRequest(`/reviews/${id}/approve`, { method: "PATCH" });
+            return apiRequest(`/reviews/${id}/status`, {
+                method: "PATCH",
+                body: JSON.stringify({ status: "approved" })
+            });
         }
         const idx = reviewStore.findIndex(r => r.id === id);
         if (idx === -1) return null;
@@ -130,7 +133,10 @@ export const reviewService = {
     /** Admin: reject review */
     async reject(id) {
         if (!API_CONFIG.USE_MOCK) {
-            return apiRequest(`/reviews/${id}/reject`, { method: "PATCH" });
+            return apiRequest(`/reviews/${id}/status`, {
+                method: "PATCH",
+                body: JSON.stringify({ status: "rejected" })
+            });
         }
         const idx = reviewStore.findIndex(r => r.id === id);
         if (idx === -1) return null;

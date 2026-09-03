@@ -1,6 +1,7 @@
 const { Low } = require('lowdb');
 const { JSONFile } = require('lowdb/node');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 const { v4: uuidv4 } = require('uuid');
 
 // مسیر فایل دیتابیس
@@ -14,10 +15,7 @@ const db = new Low(adapter, {
   settings: {
     featuredProductId: null
   },
-  admin: {
-    username: process.env.ADMIN_USERNAME || 'admin',
-    password: process.env.ADMIN_PASSWORD || '123456'
-  }
+  admin: {}
 });
 
 // مقداردهی اولیه دیتابیس
@@ -35,10 +33,7 @@ async function initDB() {
       settings: {
         featuredProductId: null
       },
-      admin: {
-        username: process.env.ADMIN_USERNAME || 'admin',
-        password: process.env.ADMIN_PASSWORD || '123456'
-      }
+      admin: {}
     };
   }
 
@@ -49,6 +44,16 @@ async function initDB() {
   db.data.users = db.data.users || [];
   db.data.reviews = db.data.reviews || [];
   db.data.settings = db.data.settings || { featuredProductId: null };
+  db.data.admin = db.data.admin || {};
+
+  // ساخت/میگریت کردن اطلاعات ادمین با bcrypt
+  const env = require('../config');
+  if (!db.data.admin.username) db.data.admin.username = env.ADMIN_USERNAME;
+  if (!db.data.admin.passwordHash) {
+    const raw = db.data.admin.password || env.ADMIN_PASSWORD;
+    db.data.admin.passwordHash = await bcrypt.hash(raw, 10);
+    delete db.data.admin.password;
+  }
 
   await db.write();
   console.log('Database initialized successfully');

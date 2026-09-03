@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { db, uuidv4 } = require('../database/db');
-
-const JWT_SECRET = 'cafe_kook_secret_key_2026';
+const { JWT_SECRET } = require('../config');
 
 // ثبت‌نام / ورود کاربر (با شماره موبایل + تاریخ تولد)
 async function registerOrLogin(req, res) {

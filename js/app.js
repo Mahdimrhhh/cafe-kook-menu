@@ -270,7 +270,6 @@ async function renderMainContent() {
     initCoffeeFinder(appState.getProducts());
     bindExpandButtons();
     bindReviewForm();
-        bindReviewForm();
 
     // اضافه کردن به دفتر (روش مطمئن)
     const handleAddToNotebook = (e) => {

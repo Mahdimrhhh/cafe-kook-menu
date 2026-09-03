@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken');
-
-const JWT_SECRET = 'cafe_kook_secret_key_2026'; // همان کلید
+const { JWT_SECRET } = require('../config');
 
 function authMiddleware(req, res, next) {
   const authHeader = req.headers.authorization;

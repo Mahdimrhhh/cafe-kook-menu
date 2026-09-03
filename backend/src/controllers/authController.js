@@ -1,11 +1,15 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const { db } = require('../database/db');
-
-const JWT_SECRET = 'cafe_kook_secret_key_2026'; // کلید ثابت
+const { JWT_SECRET } = require('../config');
 
 async function login(req, res) {
   try {
     const { username, password } = req.body;
+
+    if (!username || !password) {
+      return res.status(400).json({ message: 'نام کاربری و رمز عبور الزامی است' });
+    }
 
     await db.read();
 
@@ -15,7 +19,14 @@ async function login(req, res) {
 
     const admin = db.data.admin;
 
-    if (username !== admin.username || password !== admin.password) {
+    let passwordOk = false;
+    if (admin.passwordHash) {
+      passwordOk = await bcrypt.compare(password, admin.passwordHash);
+    } else {
+      passwordOk = (password === admin.password);
+    }
+
+    if (username !== admin.username || !passwordOk) {
       return res.status(401).json({ message: 'نام کاربری یا رمز عبور اشتباه است' });
     }
 

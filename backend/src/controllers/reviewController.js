@@ -5,11 +5,12 @@ async function createReview(req, res) {
   try {
     const { name, text, rating } = req.body;
 
-    if (!name || !text || !rating) {
-      return res.status(400).json({ message: 'نام، متن نظر و امتیاز الزامی است' });
+    if (!name || !text) {
+      return res.status(400).json({ message: 'نام و متن نظر الزامی است' });
     }
 
-    if (rating < 1 || rating > 5) {
+    const numericRating = Number(rating);
+    if (rating !== undefined && rating !== null && rating !== '' && (Number.isNaN(numericRating) || numericRating < 1 || numericRating > 5)) {
       return res.status(400).json({ message: 'امتیاز باید بین ۱ تا ۵ باشد' });
     }
 
@@ -21,7 +22,7 @@ async function createReview(req, res) {
       phone: req.user.phone,
       name: name.trim(),
       text: text.trim(),
-      rating: Number(rating),
+      rating: numericRating || null,
       status: 'pending', // در انتظار تایید
       createdAt: new Date().toISOString()
     };
